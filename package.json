@@ -2,14 +2,30 @@
 	"name": "pager-view",
 	"description": "",
 	"version": "1.0.0-beta",
-	"private": true,
+	"private": false,
 	"main": "index.ts",
+	"author": {
+		"name": "Ronaldo S.",
+		"email": "ronaldo.rs44@gmail.com"
+	},
+	"contributors": [],
+	"homepage": "https://github.com/theronaldostar/pager-view",
+	"bugs": {
+		"url": "https://github.com/theronaldostar/pager-view/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/theronaldostar/pager-view"
+	},
 	"tags": [
 		"react",
 		"react-native",
 		"react-native-web",
 		"pager-view",
-		"monorepo"
+		"monorepo",
+		"ios",
+		"android",
+		"web"
 	],
 	"files": [
 		"hooks/",
@@ -20,6 +36,7 @@
 		".yarnrc.yml",
 		"index.d.ts",
 		"index.ts",
+		"README.md",
 		"tsconfig.json"
 	],
 	"dependencies": {
