@@ -1,2 +1,2 @@
-export * from "layout/pager-view";
-export * from "layout/pager";
+export * from "pager-view/layout/pager-view";
+export * from "pager-view/layout/pager";

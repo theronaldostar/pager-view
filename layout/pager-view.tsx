@@ -1,8 +1,8 @@
 import { Children, createRef, useEffect, useRef, useState, type ReactElement, type RefObject, type ReactNode } from "react";
 import { Animated, View, StyleSheet, type FlexStyle } from "react-native";
 
-import { Slider } from "layout/body/scroll-view";
-import { TabBar } from "layout/tab/bar";
+import { Slider } from "pager-view/layout/body/scroll-view";
+import { TabBar } from "pager-view/layout/tab/bar";
 
 type ContainerProps = {
 	index?: number;

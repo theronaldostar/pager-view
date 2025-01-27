@@ -1,6 +1,6 @@
 import { Animated, StyleSheet } from "react-native";
 
-import type { MeasureProps } from "layout/tab/bar";
+import type { MeasureProps } from "pager-view/layout/tab/bar";
 
 type IndicatorProps = {
 	scrollX: Animated.Value;

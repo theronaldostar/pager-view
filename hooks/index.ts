@@ -1,1 +1,1 @@
-export * from "hooks/useScroll";
+export * from "pager-view/hooks/useScroll";

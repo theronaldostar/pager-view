@@ -1,1 +1,1 @@
-export * from "layout/body/scroll-view";
+export * from "pager-view/layout/body/scroll-view";

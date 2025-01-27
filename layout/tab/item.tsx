@@ -1,7 +1,7 @@
 import { forwardRef, type ForwardedRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
-import { useScroll } from "hooks";
+import { useScroll } from "pager-view/hooks";
 
 type TabItemProps = {
 	index: number;

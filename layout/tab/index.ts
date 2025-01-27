@@ -1,3 +1,3 @@
-export * from "layout/tab/bar";
-export * from "layout/tab/indicator";
-export * from "layout/tab/item";
+export * from "pager-view/layout/tab/bar";
+export * from "pager-view/layout/tab/indicator";
+export * from "pager-view/layout/tab/item";

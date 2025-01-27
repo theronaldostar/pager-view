@@ -1,9 +1,9 @@
 import { forwardRef, useRef, useState, type RefObject } from "react";
 import { Animated, StyleSheet, View, type FlexStyle, type LayoutChangeEvent, type Text } from "react-native";
 
-import { Indicator } from "layout/tab/indicator";
-import { TabItem } from "layout/tab/item";
-import { useScroll } from "hooks";
+import { Indicator } from "pager-view/layout/tab/indicator";
+import { TabItem } from "pager-view/layout/tab/item";
+import { useScroll } from "pager-view/hooks";
 
 type ScrollProps = Animated.FlatList<View>;
 

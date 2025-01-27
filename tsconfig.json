@@ -4,8 +4,6 @@
 		"baseUrl": ".",
 		"paths": {
 			"pager-view/*": ["*"],
-			"hooks/*": ["hooks/*"],
-			"layout/*": ["layout/*"]
 		}
 	},
 	"exclude": ["node_modules"],
