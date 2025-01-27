@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"jsx": "react-native",
+		"baseUrl": ".",
+		"paths": {
+			"pager-view/*": ["*"],
+			"hooks/*": ["hooks/*"],
+			"layout/*": ["layout/*"]
+		}
+	},
+	"exclude": ["node_modules"],
+	"include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
+}

@@ -1,0 +1,44 @@
+{
+	"name": "pager-view",
+	"description": "",
+	"version": "1.0.0-beta",
+	"private": true,
+	"main": "index.ts",
+	"tags": [
+		"react",
+		"react-native",
+		"react-native-web",
+		"pager-view",
+		"monorepo"
+	],
+	"files": [
+		"hooks/",
+		"layout/",
+		".editorconfig",
+		".gitignore",
+		".prettierrc",
+		".yarnrc.yml",
+		"index.d.ts",
+		"index.ts",
+		"tsconfig.json"
+	],
+	"dependencies": {
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-native": "^0.76.5",
+		"react-native-web": "^0.19.13"
+	},
+	"devDependencies": {
+		"@types/react": "^19.0.8",
+		"@types/react-dom": "^19.0.3",
+		"@types/react-native-web": "^0.19.0",
+		"typescript": "^5.7.3"
+	},
+	"peerDependencies": {
+		"react": ">=18.2.0",
+		"react-dom": ">=18.2.0",
+		"react-native": ">=0.72.3",
+		"react-native-web": ">=0.19.10"
+	},
+	"packageManager": "yarn@4.6.0"
+}
