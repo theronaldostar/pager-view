@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": false,
 	"main": "index.ts",
 	"author": {
@@ -9,7 +9,7 @@
 		"email": "ronaldo.rs44@gmail.com"
 	},
 	"contributors": [],
-	"homepage": "https://github.com/theronaldostar/pager-view",
+	"homepage": "https://github.com/theronaldostar/pager-view/discussions",
 	"bugs": {
 		"url": "https://github.com/theronaldostar/pager-view/issues"
 	},
@@ -17,7 +17,7 @@
 		"type": "git",
 		"url": "https://github.com/theronaldostar/pager-view"
 	},
-	"tags": [
+	"keywords": [
 		"react",
 		"react-native",
 		"react-native-web",
@@ -25,7 +25,8 @@
 		"monorepo",
 		"ios",
 		"android",
-		"web"
+		"web",
+		"WhatsApp"
 	],
 	"files": [
 		"hooks/",

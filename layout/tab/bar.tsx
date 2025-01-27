@@ -1,5 +1,5 @@
 import { forwardRef, useRef, useState, type RefObject } from "react";
-import { Animated, StyleSheet, View, type FlexStyle, type LayoutChangeEvent, type Text } from "react-native";
+import { Animated, Appearance, StyleSheet, View, type FlexStyle, type LayoutChangeEvent, type Text } from "react-native";
 
 import { Indicator } from "pager-view/layout/tab/indicator";
 import { TabItem } from "pager-view/layout/tab/item";
@@ -72,10 +72,12 @@ const TabBar = forwardRef<ScrollProps, TabBarProps>((props, scrollRef) => {
 	);
 });
 
+const scheme = Appearance.getColorScheme();
+
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fff0",
-		borderBottomColor: "#a78bfa",
+		borderBottomColor: scheme === "dark" ? "#fff" : "#475569",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 	},

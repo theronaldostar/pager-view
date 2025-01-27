@@ -1,5 +1,5 @@
 import { forwardRef, type ForwardedRef } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import { Animated, Appearance, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useScroll } from "pager-view/hooks";
 
@@ -24,13 +24,15 @@ const TabItem = forwardRef<Text, TabItemProps>((props, ref) => {
 	);
 });
 
+const scheme = Appearance.getColorScheme();
+
 const styles = StyleSheet.create({
 	label: {
 		fontSize: 20,
 		fontWeight: "600",
 		padding: 4,
 		textAlign: "center",
-		color: "#f472b6",
+		color: scheme === "dark" ? "#fff" : "#475569",
 	},
 });
 

@@ -1,4 +1,4 @@
-import { Animated, StyleSheet } from "react-native";
+import { Animated, Appearance, StyleSheet } from "react-native";
 
 import type { MeasureProps } from "pager-view/layout/tab/bar";
 
@@ -26,11 +26,13 @@ const Indicator = ({ measure, scrollX, width }: IndicatorProps) => {
 	return <Animated.View style={[{ width: indicator, transform: [{ translateX }] }, styles.container]} />;
 };
 
+const scheme = Appearance.getColorScheme();
+
 const styles = StyleSheet.create({
 	container: {
 		height: 4,
 		left: 0,
-		backgroundColor: "#a78bfa",
+		backgroundColor: scheme === "dark" ? "#fff" : "#475569",
 		borderTopRightRadius: 4,
 		borderTopLeftRadius: 4,
 	},
