@@ -1,29 +1,33 @@
-import { Children, createRef, useEffect, useRef, useState, type ReactElement, type RefObject, type ReactNode } from "react";
+import type { ReactElement, RefObject, ReactNode } from "react";
+import { Children, createRef, useEffect, useRef, useState} from "react";
 import { Animated, View, StyleSheet, type FlexStyle } from "react-native";
 
 import { Slider } from "pager-view/layout/body/scroll-view";
 import { TabBar } from "pager-view/layout/tab/bar";
 
-type ContainerProps = {
+type ColorProps = `#${string}` | `rgb(${string})` | `rgba(${string})` | `hsl(${string})` | `hwb(${string})`;
+type Screen = { id: number; element: ReactElement };
+type Tab = { id: number; ref: RefObject<View>; title: string };
+
+type PagerViewProps = {
 	index?: number;
 	children: ReactNode | ReactElement;
 	style?: FlexStyle;
+	tabBorderColor?: ColorProps;
 	tabStyle?: FlexStyle;
+	indicatorColor?: ColorProps;
+	indicatorStyle?: FlexStyle;
 };
 
-type Screen = { id: number; element: ReactElement };
-type Tab = { id: number; ref: RefObject<View>; title: string };
 
 type StateProps = {
 	screens: { [key: number]: Screen };
 	tabs: { [key: number]: Tab };
 };
 
-const PagerView = (props: ContainerProps) => {
-	const { children, index = 0, style = {}, tabStyle = {} } = props;
-
-	const refScroll = useRef<Animated.FlatList>(null);
+const PagerView = ({ children, index = 0, style = {}, tabStyle = {} }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
+	const refScroll = useRef<Animated.FlatList>(null);
 
 	const [state, setState] = useState<StateProps>({
 		screens: {},
@@ -38,7 +42,6 @@ const PagerView = (props: ContainerProps) => {
 
 		Children.map(children as ReactElement<{ element: ReactElement; title: string }>, (child, id) => {
 			const { element, title } = child.props;
-
 			const ref = createRef<View>();
 
 			baseState.screens[id] = { id, element };
@@ -63,4 +66,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export { PagerView, type ContainerProps };
+export { PagerView, type PagerViewProps };

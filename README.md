@@ -1,13 +1,14 @@
-# [PagerView](https://boteasy.net/) &middot; [![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/@gorhom/bottom-sheet) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/theronaldostar/pager-view/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/pager-view.svg?style=flat)](https://www.npmjs.com/package/pager-view) [![npm version](https://badge.fury.io/js/pager-view.svg)](https://www.npmjs.com/package/pager-view) [![Downloads](https://img.shields.io/npm/dm/pager-view.svg)](https://www.npmjs.com/package/pager-view) [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/)
+# [PagerView](https://boteasy.net/)
+[![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/pager-view) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/theronaldostar/pager-view/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/pager-view.svg?style=flat)](https://www.npmjs.com/package/pager-view) [![Downloads](https://img.shields.io/npm/dm/pager-view.svg)](https://www.npmjs.com/package/pager-view) [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/)
 
 ---
 
-# Features
+## Features
 - ⭐️ Support React Native Web.
 - ⭐️ Dynamic Sizing.
 - ⭐️ Support FlashList.
 
-# How to use?
+## How to use:
 
 ```shell
 npm i pager-view
@@ -17,7 +18,7 @@ npm i pager-view
 yarn add pager-view
 ```
 
-# Quick use:
+## Quick use:
 
 ```jsx
 import { PagerView, Pager } from "pager-view";
@@ -36,9 +37,9 @@ const Component = () => {
 export default Component;
 ```
 
-# Configuration to use in the web version:
+## Configuration to use in the web version:
 
--  with Vite.js
+### Example with Vite.js
 
 ```jsx
 import { defineConfig } from "vite";
@@ -62,3 +63,21 @@ export default defineConfig({
 });
 
 ```
+
+## Available props:
+
+### PagerView
+
+| Name | Type | Default | Description |
+| -------- | -------- | -------- | -------- |
+| index | number | 0 | - |
+| children | ReactElement, ReactNode | Required | - |
+| style | FlexStyle | {} | - |
+| tabStyle | FlexStyle | {} | - |
+
+### Pager
+
+| Name | Type | Default | Description |
+| -------- | -------- | -------- | -------- |
+| title | string | Required | - |
+| element | ReactNode | Required | - |

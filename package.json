@@ -1,9 +1,10 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.1",
-	"private": false,
+	"version": "1.0.2",
+	"license": "MIT",
 	"main": "index.ts",
+	"module": "index.ts",
 	"author": {
 		"name": "Ronaldo S.",
 		"email": "ronaldo.rs44@gmail.com"
@@ -29,6 +30,7 @@
 		"WhatsApp"
 	],
 	"files": [
+		".yarn/",
 		"hooks/",
 		"layout/",
 		".editorconfig",

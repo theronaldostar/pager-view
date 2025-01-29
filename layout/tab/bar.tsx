@@ -6,38 +6,18 @@ import { TabItem } from "pager-view/layout/tab/item";
 import { useScroll } from "pager-view/hooks";
 
 type ScrollProps = Animated.FlatList<View>;
-
-type TabBarData = {
-	[id: number]: {
-		id: number;
-		ref: RefObject<Text>;
-		title: string;
-	};
-};
-
-type TabBarProps = {
-	data: TabBarData;
-	index?: number;
-	scrollX: Animated.Value;
-	style?: FlexStyle;
-};
-
+type TabBarData = { [id: number]: { id: number; ref: RefObject<View>; title: string } };
 type MeasureProps = { left: number; top: number; width: number; height: number }[];
+type TabBarProps = { data: TabBarData; index?: number; scrollX: Animated.Value; style?: FlexStyle };
+type StateProps = { width: number; measure: MeasureProps };
 
-type StateProps = {
-	width: number;
-	measure: MeasureProps;
-};
-
-const TabBar = forwardRef<ScrollProps, TabBarProps>((props, scrollRef) => {
-	const { data, index, scrollX, style = {} } = props;
+const TabBar = forwardRef<ScrollProps, TabBarProps>(({ data, index, scrollX, style = {} }, scrollRef) => {
+	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
 		width: 0,
 		measure: [],
 	});
-
-	const groupRef = useRef<View>(null);
 
 	const handleScroll = useScroll(scrollRef, state.width);
 
