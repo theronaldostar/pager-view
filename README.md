@@ -4,11 +4,12 @@
 ---
 
 ## Features
+- ⭐️ Compatible with React 19.
 - ⭐️ Support React Native Web.
 - ⭐️ Dynamic Sizing.
 - ⭐️ Support FlashList.
 
-## How to use:
+## How to use
 
 ```shell
 npm i pager-view
@@ -18,7 +19,7 @@ npm i pager-view
 yarn add pager-view
 ```
 
-## Quick use:
+## Quick use
 
 ```jsx
 import { PagerView, Pager } from "pager-view";
@@ -37,7 +38,7 @@ const Component = () => {
 export default Component;
 ```
 
-## Configuration to use in the web version:
+## Configuration to use in the web version
 
 ### Example with Vite.js
 
@@ -64,7 +65,7 @@ export default defineConfig({
 
 ```
 
-## Available props:
+## Available props
 
 ### PagerView
 

@@ -27,7 +27,9 @@
 		"ios",
 		"android",
 		"web",
-		"WhatsApp"
+		"WhatsApp",
+		"19",
+		"react19"
 	],
 	"files": [
 		".yarn/",
