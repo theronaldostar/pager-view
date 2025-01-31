@@ -1,14 +1,14 @@
-import { useCallback } from "react";
+import { useCallback, type ForwardedRef } from "react";
+import type { Animated, View } from "react-native";
 
-const useScroll = (ref, width: number) =>
+type ScrollRef = ForwardedRef<Animated.FlatList<View>>;
+
+const useScroll = (ref: ScrollRef, width: number) =>
 	useCallback(
 		(index: number) => {
-			ref?.current?.scrollToOffset({
-				animated: true,
-				offset: index * width,
-			});
+			if ("current" in ref) ref.current?.scrollToOffset({ animated: true, offset: index * width });
 		},
 		[ref, width],
 	);
 
-export { useScroll };
+export { useScroll, type ScrollRef };

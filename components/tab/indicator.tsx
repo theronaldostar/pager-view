@@ -1,14 +1,16 @@
 import { Animated, Appearance, StyleSheet } from "react-native";
 
-import type { MeasureProps } from "pager-view/layout/tab/bar";
+import type { ColorProps } from "pager-view/types";
+import type { MeasureProps } from "pager-view/components/tab/bar";
 
 type IndicatorProps = {
+	color?: ColorProps;
 	scrollX: Animated.Value;
 	measure: MeasureProps;
 	width: number;
 };
 
-const Indicator = ({ measure, scrollX, width }: IndicatorProps) => {
+const Indicator = ({ color, measure, scrollX, width }: IndicatorProps) => {
 	if (!scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure?.map((_, i) => width * i);
@@ -23,7 +25,18 @@ const Indicator = ({ measure, scrollX, width }: IndicatorProps) => {
 		outputRange: measure.map(data => data.left),
 	});
 
-	return <Animated.View style={[{ width: indicator, transform: [{ translateX }] }, styles.container]} />;
+	return (
+		<Animated.View
+			style={[
+				{
+					backgroundColor: color ?? (scheme === "dark" ? "#fff" : "#475569"),
+					transform: [{ translateX }],
+					width: indicator,
+				},
+				styles.container,
+			]}
+		/>
+	);
 };
 
 const scheme = Appearance.getColorScheme();
@@ -32,7 +45,6 @@ const styles = StyleSheet.create({
 	container: {
 		height: 4,
 		left: 0,
-		backgroundColor: scheme === "dark" ? "#fff" : "#475569",
 		borderTopRightRadius: 4,
 		borderTopLeftRadius: 4,
 	},

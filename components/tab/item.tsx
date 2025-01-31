@@ -1,28 +1,25 @@
-import { forwardRef, type ForwardedRef } from "react";
-import { Animated, Appearance, Pressable, StyleSheet, Text, View } from "react-native";
+import { Appearance, Pressable, StyleSheet, Text } from "react-native";
 
-import { useScroll } from "pager-view/hooks";
+import { useScroll, type ScrollRef } from "pager-view/hooks";
 
 type TabItemProps = {
 	index: number;
-	scrollRef: ForwardedRef<Animated.FlatList<View>>;
+	scrollRef: ScrollRef;
 	text: string;
 	width: number;
 };
 
-const TabItem = forwardRef<Text, TabItemProps>((props, ref) => {
-	const { index, scrollRef, text, width } = props;
-
+const TabItem = ({ index, scrollRef, text, width }: TabItemProps) => {
 	const handlePress = useScroll(scrollRef, width);
 
 	return (
 		<Pressable onPress={() => handlePress(index)}>
-			<Text ref={ref} style={styles.label} ellipsizeMode="middle" numberOfLines={1}>
+			<Text style={styles.label} ellipsizeMode="middle" numberOfLines={1}>
 				{text}
 			</Text>
 		</Pressable>
 	);
-});
+};
 
 const scheme = Appearance.getColorScheme();
 
