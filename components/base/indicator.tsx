@@ -5,13 +5,13 @@ import type { ColorProps } from "pager-view/types";
 
 type IndicatorProps = {
 	color?: ColorProps;
-	scrollX: Animated.Value;
 	measure: MeasureProps;
-	width: number;
+	scrollX: Animated.Value;
 	show?: boolean;
+	width: number;
 };
 
-const Indicator = ({ color, measure, scrollX, width, show }: IndicatorProps) => {
+const Indicator = ({ color, measure, scrollX, show, width }: IndicatorProps) => {
 	if (!scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure?.map((_, i) => width * i);

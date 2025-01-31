@@ -51,25 +51,27 @@ export default Component;
 ### With Hook
 
 ```jsx
-import { useRef } from "react";
+import { useState } from "react";
 import { Text, View } from "react-native";
-import { PagerView, Pager, useScroll, type RefScrollProps } from "pager-view";
+import { PagerView, Pager, useScroll, type ScrollRef } from "pager-view";
 
 const Component = () => {
-	const ref = useRef<RefScrollProps>(null);
+	const [ref, setRef] = useState<ScrollRef>();
 
-	const Screen = () => (
-		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text style={{ color: "#f90" }}>Swipe ➡️</Text>
-		</View>
-	);
+	const Screen = () => {
+		const handleChange = () => useScroll(ref, 2);
 
-	const handleChange = () => useScroll(ref, 0);
+		return (
+			<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+				<Text onPress={handleChange} style={{ color: "#f90" }}>Swipe ➡️</Text>
+			</View>
+		);
+	};
 
 	return (
-		<PagerView ref={ref}>
+		<PagerView getRef={ref => setRef(ref)}>
 			<Pager title="First page" element={<Screen />} />
-			<Pager index title="Second" element={<Text onPress={handleChange}>Second page</Text>} />
+			<Pager index title="Second" element={<Text>Second page</Text>} />
 			<Pager index={false} title="Third" element={<Text>Third page</Text>} />
 		</PagerView>
 	);
