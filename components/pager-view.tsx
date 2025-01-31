@@ -7,12 +7,12 @@ import { TabBar } from "pager-view/components/tab/bar";
 import type { ColorProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
+	index: number;
 	screens: { [key: number]: ScreenProps };
 	tabs: { [key: number]: TabProps };
 };
 
 interface PagerViewProps extends ViewProps {
-	index?: number;
 	showIndicator?: boolean;
 	setPage?: (index: number) => void;
 	//-------------------------------------
@@ -22,35 +22,35 @@ interface PagerViewProps extends ViewProps {
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({ children, index = 0, indicatorColor, showIndicator = true, style, tabStyle = {}, ...props }: PagerViewProps) => {
+const PagerView = ({ children, indicatorColor, showIndicator = true, style, tabStyle = {}, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef(null);
 
-	const [state, setState] = useState<StateProps>({
-		screens: {},
-		tabs: {},
-	});
+	const [state, setState] = useState({} as StateProps);
 
 	useEffect(() => {
-		const baseState = { screens: {}, tabs: {} };
+		const newState = { index: 0, screens: {}, tabs: {} };
 
-		Children.map(children as ReactElement<{ element: ReactElement; title: string }>, (child, id) => {
-			const { element, title } = child.props;
+		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
+			const { element, index, title } = child.props;
 
 			const ref = createRef<View>();
 
-			baseState.screens[id] = { id, element };
-			baseState.tabs[id] = { id, ref, title };
+			if (index) newState.index = id;
+			newState.screens[id] = { id, element };
+			newState.tabs[id] = { id, ref, title };
 
-			if (Object.keys(baseState.tabs).length === Children.count(children)) setState(baseState);
+			if (Object.keys(newState.tabs).length === Children.count(children)) setState(newState);
 		});
+
+		return () => {};
 	}, [children]);
 
 	return (
 		<View style={[styles.container, style]} {...props}>
 			<TabBar
 				data={state.tabs}
-				index={index}
+				index={state.index}
 				indicatorColor={indicatorColor}
 				ref={refScroll}
 				scrollX={current}

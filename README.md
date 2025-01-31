@@ -35,10 +35,10 @@ const Component = () => {
 	);
 
 	return (
-		<PagerView index={1}>
+		<PagerView>
 			<Pager title="First page" element={<Screen />} />
-			<Pager title="Second" element={<Text>Second page</Text>} />
-			<Pager title="Third" element={<Text>Third page</Text>} />
+			<Pager index title="Second" element={<Text>Second page</Text>} />
+			<Pager index={false} title="Third" element={<Text>Third page</Text>} />
 		</PagerView>
 	);
 };
@@ -78,7 +78,6 @@ export default defineConfig({
 
 | Name           | Type             | Default   | Description |
 | -------------- | ---------------- | --------- | ----------- |
-| index          | number           | 0         | -           |
 | showIndicator  | boolean          | true      | -           |
 | setPage        | function         | undefined | -           |
 | indicatorColor | #, rgb, hsl, hwb | system    | -           |
@@ -90,5 +89,6 @@ export default defineConfig({
 
 | Name   | Type      | Default  | Description |
 | ------ | --------- | -------- | ----------- |
-| title  | string    | Required | -           |
+| index  | boolean   | false    | -           |
 | screen | ReactNode | Required | -           |
+| title  | string    | Required | -           |
