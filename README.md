@@ -56,20 +56,23 @@ import { Text, View } from "react-native";
 import { PagerView, Pager, useScroll, type ScrollRef } from "pager-view";
 
 const Component = () => {
-	const [ref, setRef] = useState<ScrollRef>();
+	const [ref, setRef] = useState<ScrollRef>({
+		ref: null,
+		width: 0,
+	});
 
 	const Screen = () => {
-		const handleChange = () => useScroll(ref, 2);
+		const handleChange = useScroll(state.ref, state.width);
 
 		return (
 			<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-				<Text onPress={handleChange} style={{ color: "#f90" }}>Swipe ➡️</Text>
+				<Text onPress={() => handleChange(0)} style={{ color: "#f90" }}>Swipe ➡️</Text>
 			</View>
 		);
 	};
 
 	return (
-		<PagerView getRef={ref => setRef(ref)}>
+		<PagerView getRef={(ref, width) => setRef({ ref, width })}>
 			<Pager title="First page" element={<Screen />} />
 			<Pager index title="Second" element={<Text>Second page</Text>} />
 			<Pager index={false} title="Third" element={<Text>Third page</Text>} />

@@ -1,9 +1,9 @@
-import { Children, createRef, useEffect, useRef, useState, type ForwardedRef, type ReactElement } from "react";
+import { Children, createRef, useEffect, useRef, useState, type ReactElement } from "react";
 import { Animated, View, StyleSheet, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/base";
-import type { ColorProps, RefScrollProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
+import type { ColorProps, GetRefProps, RefScrollProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
 	index: number;
@@ -13,7 +13,7 @@ type StateProps = {
 
 interface PagerViewProps extends ViewProps {
 	indicatorColor?: ColorProps;
-	getRef?: (ref: ForwardedRef<Animated.FlatList>) => void;
+	getRef?: GetRefProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
 }
@@ -27,11 +27,6 @@ const PagerView = ({ children, indicatorColor, getRef, showIndicator = true, sty
 		screens: {},
 		tabs: {},
 	});
-
-	useEffect(() => {
-		if (getRef) getRef(refScroll);
-		return () => {};
-	}, [refScroll]);
 
 	useEffect(() => {
 		const newState = { index: 0, screens: {}, tabs: {} };
@@ -58,6 +53,7 @@ const PagerView = ({ children, indicatorColor, getRef, showIndicator = true, sty
 				index={state.index}
 				indicatorColor={indicatorColor}
 				ref={refScroll}
+				sendRef={getRef}
 				scrollX={current}
 				showIndicator={showIndicator}
 				style={tabStyle}

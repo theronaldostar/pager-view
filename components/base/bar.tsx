@@ -1,10 +1,10 @@
-import { forwardRef, useRef, useState, type RefObject } from "react";
+import { forwardRef, useEffect, useRef, useState, type RefObject } from "react";
 import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
 
 import { Indicator } from "pager-view/components/base/indicator";
 import { TabItem } from "pager-view/components/base/item";
 import { useScroll } from "pager-view/hooks";
-import type { ColorProps, StyleProps, TabProps } from "pager-view/types";
+import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
 type MeasureProps = { left: number; top: number; width: number; height: number }[];
 
@@ -17,18 +17,24 @@ type TabBarProps = {
 	data: { [id: number]: TabProps };
 	index?: number;
 	indicatorColor?: ColorProps;
+	sendRef?: GetRefProps;
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
 	style?: StyleProps<ViewStyle>;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorColor, scrollX, showIndicator, style = {} }, ref) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorColor, sendRef, scrollX, showIndicator, style = {} }, ref) => {
 	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
 		width: 0,
 		measure: [],
 	});
+
+	useEffect(() => {
+		if (sendRef) sendRef(ref, state.width);
+		return () => {};
+	}, [ref, state.width]);
 
 	const handleEffect = () => {
 		const measure: MeasureProps = [];
@@ -58,7 +64,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 					<TabItem index={id} key={id} text={title} width={state.width} scrollRef={ref} />
 				))}
 			</View>
-			<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} width={state.width} />
+			{showIndicator && <Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} width={state.width} />}
 		</View>
 	);
 });
