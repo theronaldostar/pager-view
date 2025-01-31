@@ -1,7 +1,7 @@
 import { Animated, Appearance, StyleSheet } from "react-native";
 
+import type { MeasureProps } from "pager-view/components/base/bar";
 import type { ColorProps } from "pager-view/types";
-import type { MeasureProps } from "pager-view/components/private/base/bar";
 
 type IndicatorProps = {
 	color?: ColorProps;

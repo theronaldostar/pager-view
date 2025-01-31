@@ -1,8 +1,8 @@
 import { forwardRef, useRef, useState, type RefObject } from "react";
 import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
 
-import { Indicator } from "pager-view/components/private/base/indicator";
-import { TabItem } from "pager-view/components/private/base/item";
+import { Indicator } from "pager-view/components/base/indicator";
+import { TabItem } from "pager-view/components/base/item";
 import { useScroll } from "pager-view/hooks";
 import type { ColorProps, StyleProps, TabProps } from "pager-view/types";
 

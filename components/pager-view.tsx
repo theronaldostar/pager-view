@@ -1,8 +1,8 @@
 import { Children, createRef, forwardRef, useEffect, useRef, useState, type ReactElement } from "react";
 import { Animated, View, StyleSheet, type ViewProps } from "react-native";
 
-import { ScrollView } from "pager-view/components/private/container";
-import { TabBar } from "pager-view/components/private/base";
+import { ScrollView } from "pager-view/components/container";
+import { TabBar } from "pager-view/components/base";
 import type { ColorProps, RefScrollProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
