@@ -13,11 +13,7 @@ type StateProps = {
 
 interface PagerViewProps extends ViewProps {
 	showIndicator?: boolean;
-	setPage?: (index: number) => void;
-	//-------------------------------------
 	indicatorColor?: ColorProps;
-	indicatorStyle?: StyleProps;
-	tabBorderColor?: ColorProps;
 	tabStyle?: StyleProps;
 }
 
@@ -69,6 +65,3 @@ const styles = StyleSheet.create({
 });
 
 export { PagerView, type ColorProps, type PagerViewProps };
-<PagerView tabStyle={{}}>
-	<></>
-</PagerView>;
