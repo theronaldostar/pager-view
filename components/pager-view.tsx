@@ -12,13 +12,11 @@ type StateProps = {
 };
 
 interface PagerViewProps extends ViewProps {
-	indicatorColor?: ColorProps;
 	getRef?: GetRefProps;
-	showIndicator?: boolean;
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({ children, indicatorColor, getRef, showIndicator = true, style, tabStyle = {}, ...props }: PagerViewProps) => {
+const PagerView = ({ children, getRef, style, tabStyle = {}, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<RefScrollProps>(null);
 
@@ -48,16 +46,7 @@ const PagerView = ({ children, indicatorColor, getRef, showIndicator = true, sty
 
 	return (
 		<View style={[styles.container, style]} {...props}>
-			<TabBar
-				data={state.tabs}
-				index={state.index}
-				indicatorColor={indicatorColor}
-				ref={refScroll}
-				getRef={getRef}
-				scrollX={current}
-				showIndicator={showIndicator}
-				style={tabStyle}
-			/>
+			<TabBar data={state.tabs} index={state.index} ref={refScroll} getRef={getRef} scrollX={current} style={tabStyle} />
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
 	);

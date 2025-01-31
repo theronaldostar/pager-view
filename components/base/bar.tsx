@@ -4,7 +4,7 @@ import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type Vi
 import { Indicator } from "pager-view/components/base/indicator";
 import { TabItem } from "pager-view/components/base/item";
 import { useScroll } from "pager-view/hooks";
-import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
+import type { GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
 type MeasureProps = { left: number; top: number; width: number; height: number }[];
 
@@ -13,14 +13,12 @@ type StateProps = { measure: MeasureProps; width: number };
 type TabBarProps = {
 	data: { [id: number]: TabProps };
 	index?: number;
-	indicatorColor?: ColorProps;
 	getRef?: GetRefProps;
 	scrollX: Animated.Value;
-	showIndicator?: boolean;
 	style?: StyleProps<ViewStyle>;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorColor, getRef, scrollX, showIndicator, style = {} }, tabRef) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef, scrollX, style = {} }, tabRef) => {
 	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
@@ -61,31 +59,28 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 					<TabItem index={id} key={id} scrollRef={tabRef} text={title} width={state.width} />
 				))}
 			</View>
-			<Animated.View
-				style={[
-					{
-						width: 100,
-						backgroundColor: scheme === "dark" ? "#fff" : "#475569",
-						borderTopRightRadius: 4,
-						borderTopLeftRadius: 4,
-						height: 4,
-						left: 0,
-					},
-				]}
-			/>
-			<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} width={state.width} />
+			<Indicator measure={state.measure} scrollX={scrollX} style={styles.indicator} width={state.width} />
 		</View>
 	);
 });
 
 const scheme = Appearance.getColorScheme();
 
+const colorScheme = scheme === "dark" ? "#fff" : "#475569";
+
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fff0",
-		borderBottomColor: scheme === "dark" ? "#fff" : "#475569",
+		borderBottomColor: colorScheme,
 		borderBottomWidth: 1,
 		borderStyle: "solid",
+	},
+	indicator: {
+		backgroundColor: colorScheme,
+		borderTopRightRadius: 4,
+		borderTopLeftRadius: 4,
+		height: 4,
+		left: 0,
 	},
 	group: {
 		flexDirection: "row",
