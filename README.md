@@ -23,6 +23,8 @@ yarn add pager-view
 
 ## Quick use
 
+### Standard
+
 ```jsx
 import { Text, View } from "react-native";
 import { PagerView, Pager } from "pager-view";
@@ -38,6 +40,36 @@ const Component = () => {
 		<PagerView>
 			<Pager title="First page" element={<Screen />} />
 			<Pager index title="Second" element={<Text>Second page</Text>} />
+			<Pager index={false} title="Third" element={<Text>Third page</Text>} />
+		</PagerView>
+	);
+};
+
+export default Component;
+```
+
+### With Hook
+
+```jsx
+import { useRef } from "react";
+import { Text, View } from "react-native";
+import { PagerView, Pager, useScroll } from "pager-view";
+
+const Component = () => {
+	const ref = useRef(null);
+
+	const Screen = () => (
+		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+			<Text style={{ color: "#f90" }}>Swipe ➡️</Text>
+		</View>
+	);
+
+	const handleChange = () => useScroll(ref, 0);
+
+	return (
+		<PagerView ref={ref}>
+			<Pager title="First page" element={<Screen />} />
+			<Pager index title="Second" element={<Text onPress={handleChange}>Second page</Text>} />
 			<Pager index={false} title="Third" element={<Text>Third page</Text>} />
 		</PagerView>
 	);
