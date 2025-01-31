@@ -53,10 +53,10 @@ export default Component;
 ```jsx
 import { useRef } from "react";
 import { Text, View } from "react-native";
-import { PagerView, Pager, useScroll } from "pager-view";
+import { PagerView, Pager, useScroll, type RefScrollProps } from "pager-view";
 
 const Component = () => {
-	const ref = useRef(null);
+	const ref = useRef<RefScrollProps>(null);
 
 	const Screen = () => (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

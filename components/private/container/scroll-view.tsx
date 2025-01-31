@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import { Animated, Dimensions, View, type LayoutChangeEvent, type StyleProp, type ViewStyle } from "react-native";
 
-import type { ScreenProps } from "pager-view/types";
+import type { RefScrollProps, ScreenProps } from "pager-view/types";
 
 type ScrollViewProps = {
 	data: { [key: number]: ScreenProps };
@@ -9,7 +9,7 @@ type ScrollViewProps = {
 	style?: StyleProp<ViewStyle>;
 };
 
-const ScrollView = forwardRef<Animated.FlatList<ScreenProps>, ScrollViewProps>((props, ref) => {
+const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>((props, ref) => {
 	const { data, scrollX: x, style = {}, ...rest } = props;
 
 	const [state, setState] = useState(() => {

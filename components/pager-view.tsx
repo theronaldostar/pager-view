@@ -3,7 +3,7 @@ import { Animated, View, StyleSheet, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/private/container";
 import { TabBar } from "pager-view/components/private/base";
-import type { ColorProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
+import type { ColorProps, RefScrollProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
 	index: number;
@@ -21,47 +21,45 @@ interface PagerViewProps extends ViewProps {
 	tabStyle?: StyleProps;
 }
 
-const PagerView = forwardRef<Animated.FlatList<ScreenProps>, PagerViewProps>(
-	({ children, indicatorColor, showIndicator = true, style, tabStyle = {}, ...props }, ref) => {
-		const { current } = useRef(new Animated.Value(0));
-		const refScroll = useRef<Animated.FlatList<ScreenProps>>(null);
+const PagerView = forwardRef<RefScrollProps, PagerViewProps>(({ children, indicatorColor, showIndicator = true, style, tabStyle = {}, ...props }, ref) => {
+	const { current } = useRef(new Animated.Value(0));
+	const refScroll = useRef<RefScrollProps>(null);
 
-		const [state, setState] = useState({} as StateProps);
+	const [state, setState] = useState({} as StateProps);
 
-		useEffect(() => {
-			const newState = { index: 0, screens: {}, tabs: {} };
+	useEffect(() => {
+		const newState = { index: 0, screens: {}, tabs: {} };
 
-			Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
-				const { element, index, title } = child.props;
+		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
+			const { element, index, title } = child.props;
 
-				const ref = createRef<View>();
+			const ref = createRef<View>();
 
-				if (index) newState.index = id;
-				newState.screens[id] = { id, element };
-				newState.tabs[id] = { id, ref, title };
+			if (index) newState.index = id;
+			newState.screens[id] = { id, element };
+			newState.tabs[id] = { id, ref, title };
 
-				if (Object.keys(newState.tabs).length === Children.count(children)) setState(newState);
-			});
+			if (Object.keys(newState.tabs).length === Children.count(children)) setState(newState);
+		});
 
-			return () => {};
-		}, [children]);
+		return () => {};
+	}, [children]);
 
-		return (
-			<View style={[styles.container, style]} {...props}>
-				<TabBar
-					data={state.tabs}
-					index={state.index}
-					indicatorColor={indicatorColor}
-					ref={ref || refScroll}
-					scrollX={current}
-					showIndicator={showIndicator}
-					style={tabStyle}
-				/>
-				<ScrollView data={state.screens} ref={ref || refScroll} scrollX={current} style={style} />
-			</View>
-		);
-	},
-);
+	return (
+		<View style={[styles.container, style]} {...props}>
+			<TabBar
+				data={state.tabs}
+				index={state.index}
+				indicatorColor={indicatorColor}
+				ref={ref || refScroll}
+				scrollX={current}
+				showIndicator={showIndicator}
+				style={tabStyle}
+			/>
+			<ScrollView data={state.screens} ref={ref || refScroll} scrollX={current} style={style} />
+		</View>
+	);
+});
 
 const styles = StyleSheet.create({
 	container: {
