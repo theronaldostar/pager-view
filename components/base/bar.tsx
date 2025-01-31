@@ -6,7 +6,12 @@ import { TabItem } from "pager-view/components/base/item";
 import { useScroll } from "pager-view/hooks";
 import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
-type MeasureProps = { left: number; top: number; width: number; height: number }[];
+type MeasureProps = {
+	left: number;
+	top: number;
+	width: number;
+	height: number;
+}[];
 
 type StateProps = {
 	measure: MeasureProps;
@@ -23,7 +28,7 @@ type TabBarProps = {
 	style?: StyleProps<ViewStyle>;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorColor, sendRef, scrollX, showIndicator, style = {} }, ref) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorColor, sendRef, scrollX, showIndicator, style = {} }, tabRef) => {
 	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
@@ -32,22 +37,22 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	});
 
 	useEffect(() => {
-		if (sendRef) sendRef(ref, state.width);
+		if (sendRef) sendRef(tabRef, state.width);
 		return () => {};
-	}, [ref, state.width]);
+	}, [tabRef, state.width]);
 
 	const handleEffect = () => {
 		const measure: MeasureProps = [];
 
 		Object.values(data).map(({ ref }) => {
-			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current, (left: number, top: number, width: number, height: number) => {
+			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current!, (left: number, top: number, width: number, height: number) => {
 				measure.push({ left, top, width, height });
 				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
 			});
 		});
 	};
 
-	const handleScroll = useScroll(ref, state.width);
+	const handleScroll = useScroll(tabRef, state.width);
 
 	const handleLayout = async (event: LayoutChangeEvent) => {
 		const { width } = event.nativeEvent.layout;
@@ -61,10 +66,10 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 		<View onLayout={handleLayout} style={[styles.container, style]}>
 			<View ref={groupRef} style={styles.group}>
 				{Object.values(data).map(({ id, ref, title }) => (
-					<TabItem index={id} key={id} text={title} width={state.width} scrollRef={ref} />
+					<TabItem index={id} ref={ref} key={id} text={title} width={state.width} scrollRef={tabRef} />
 				))}
 			</View>
-			{showIndicator && <Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} width={state.width} />}
+			<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} width={state.width} />
 		</View>
 	);
 });
