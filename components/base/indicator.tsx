@@ -11,7 +11,7 @@ type IndicatorProps = {
 	width: number;
 };
 
-const Indicator = ({ color, measure, scrollX, show, width }: IndicatorProps) => {
+const Indicator = ({ color, measure, scrollX, width }: IndicatorProps) => {
 	if (!scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure?.map((_, i) => width * i);
@@ -26,29 +26,18 @@ const Indicator = ({ color, measure, scrollX, show, width }: IndicatorProps) => 
 		outputRange: measure.map(data => data.left),
 	});
 
-	return (
-		<Animated.View
-			style={[
-				{
-					backgroundColor: color ?? (scheme === "dark" ? "#fff" : "#475569"),
-					transform: [{ translateX }],
-					width: indicator,
-					display: show ? "flex" : "none",
-				},
-				styles.container,
-			]}
-		/>
-	);
+	return <Animated.View style={[styles.container, { backgroundColor: color, width: indicator, transform: [{ translateX }] }]} />;
 };
 
 const scheme = Appearance.getColorScheme();
 
 const styles = StyleSheet.create({
 	container: {
-		height: 4,
-		left: 0,
+		backgroundColor: scheme === "dark" ? "#fff" : "#475569",
 		borderTopRightRadius: 4,
 		borderTopLeftRadius: 4,
+		height: 4,
+		left: 0,
 	},
 });
 

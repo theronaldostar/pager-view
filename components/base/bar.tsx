@@ -65,8 +65,8 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	return (
 		<View onLayout={handleLayout} style={[styles.container, style]}>
 			<View ref={groupRef} style={styles.group}>
-				{Object.values(data).map(({ id, ref, title }) => (
-					<TabItem index={id} ref={ref} key={id} text={title} width={state.width} scrollRef={tabRef} />
+				{Object.values(data).map(({ id, title }) => (
+					<TabItem index={id} key={id} text={title} width={state.width} scrollRef={tabRef} />
 				))}
 			</View>
 			<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} width={state.width} />
