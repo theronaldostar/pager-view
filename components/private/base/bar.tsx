@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState, type RefObject } from "react";
 import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
 
 import { Indicator } from "pager-view/components/private/base/indicator";
@@ -13,10 +13,8 @@ type StateProps = {
 	width: number;
 };
 
-type TabBarData = { [id: number]: TabProps };
-
 type TabBarProps = {
-	data: TabBarData;
+	data: { [id: number]: TabProps };
 	index?: number;
 	indicatorColor?: ColorProps;
 	scrollX: Animated.Value;
@@ -36,12 +34,10 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 		const measure: MeasureProps = [];
 
 		Object.values(data).map(({ ref }) => {
-			if ("current" in ref && "measureLayout" in ref.current) {
-				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-					measure.push({ left, top, width, height });
-					if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
-				});
-			}
+			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current, (left: number, top: number, width: number, height: number) => {
+				measure.push({ left, top, width, height });
+				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
+			});
 		});
 	};
 
@@ -58,11 +54,11 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	return (
 		<View onLayout={handleLayout} style={[styles.container, style]}>
 			<View ref={groupRef} style={styles.group}>
-				{Object.values(data).map(({ id, ref: scrollRef, title }) => (
-					<TabItem index={id} key={id} text={title} width={state.width} scrollRef={scrollRef} />
+				{Object.values(data).map(({ id, ref, title }) => (
+					<TabItem index={id} key={id} text={title} width={state.width} scrollRef={ref} />
 				))}
 			</View>
-			{showIndicator && <Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} width={state.width} />}
+			<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} width={state.width} />
 		</View>
 	);
 });

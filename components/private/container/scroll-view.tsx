@@ -22,7 +22,14 @@ const ScrollView = forwardRef<Animated.FlatList<ScreenProps>, ScrollViewProps>((
 		setState({ width, height });
 	};
 
-	const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x } } }], { useNativeDriver: false });
+	const handleScroll = Animated.event(
+		[
+			{
+				nativeEvent: { contentOffset: { x } },
+			},
+		],
+		{ useNativeDriver: false },
+	);
 
 	return (
 		<Animated.FlatList

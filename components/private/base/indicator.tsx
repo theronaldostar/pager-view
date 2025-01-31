@@ -8,9 +8,10 @@ type IndicatorProps = {
 	scrollX: Animated.Value;
 	measure: MeasureProps;
 	width: number;
+	show?: boolean;
 };
 
-const Indicator = ({ color, measure, scrollX, width }: IndicatorProps) => {
+const Indicator = ({ color, measure, scrollX, width, show }: IndicatorProps) => {
 	if (!scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure?.map((_, i) => width * i);
@@ -32,6 +33,7 @@ const Indicator = ({ color, measure, scrollX, width }: IndicatorProps) => {
 					backgroundColor: color ?? (scheme === "dark" ? "#fff" : "#475569"),
 					transform: [{ translateX }],
 					width: indicator,
+					display: show ? "flex" : "none",
 				},
 				styles.container,
 			]}
