@@ -21,7 +21,11 @@ const PagerView = forwardRef<RefScrollProps, PagerViewProps>(({ children, indica
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<RefScrollProps>(null);
 
-	const [state, setState] = useState<StateProps>({ index: 0, screens: {}, tabs: {} });
+	const [state, setState] = useState<StateProps>({
+		index: 0,
+		screens: {},
+		tabs: {},
+	});
 
 	useEffect(() => {
 		const newState = { index: 0, screens: {}, tabs: {} };
