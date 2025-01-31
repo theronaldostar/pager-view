@@ -53,7 +53,7 @@ const PagerView = ({ children, indicatorColor, getRef, showIndicator = true, sty
 				index={state.index}
 				indicatorColor={indicatorColor}
 				ref={refScroll}
-				sendRef={getRef}
+				getRef={getRef}
 				scrollX={current}
 				showIndicator={showIndicator}
 				style={tabStyle}

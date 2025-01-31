@@ -10,7 +10,7 @@ type ScrollViewProps = {
 };
 
 const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>((props, ref) => {
-	const { data, scrollX: x, style = {}, ...rest } = props;
+	const { data, scrollX, style = {}, ...rest } = props;
 
 	const [state, setState] = useState(() => {
 		const { width, height } = Dimensions.get("window");
@@ -22,28 +22,21 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>((props, ref) => {
 		setState({ width, height });
 	};
 
-	const handleScroll = Animated.event(
-		[
-			{
-				nativeEvent: { contentOffset: { x } },
-			},
-		],
-		{ useNativeDriver: false },
-	);
+	const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false });
 
 	return (
 		<Animated.FlatList
 			bounces={false}
 			data={Object.values(data)}
-			keyExtractor={({ id }) => id.toString()}
 			horizontal
-			ref={ref}
-			pagingEnabled
 			onLayout={handleLayout}
 			onScroll={handleScroll}
+			pagingEnabled
+			ref={ref}
+			renderItem={({ item: { element } }) => <View style={[style, { width: state.width, height: state.height }]}>{element}</View>}
 			showsHorizontalScrollIndicator={false}
 			showsVerticalScrollIndicator={false}
-			renderItem={({ item: { element } }) => <View style={[{ width: state.width, height: state.height }, style]}>{element}</View>}
+			keyExtractor={({ id }) => id.toString()}
 			{...rest}
 		/>
 	);

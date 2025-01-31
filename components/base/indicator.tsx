@@ -1,6 +1,6 @@
 import { Animated, Appearance, StyleSheet } from "react-native";
 
-import type { MeasureProps } from "pager-view/components/base/bar";
+import type { MeasureProps } from "pager-view/components/base";
 import type { ColorProps } from "pager-view/types";
 
 type IndicatorProps = {
@@ -11,22 +11,22 @@ type IndicatorProps = {
 	width: number;
 };
 
-const Indicator = ({ color, measure, scrollX, width }: IndicatorProps) => {
-	if (!scrollX || !Array.isArray(measure) || measure.length < 2) return null;
+const Indicator = ({ measure, scrollX, width }: IndicatorProps) => {
+	if (scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
-	const inputRange = measure?.map((_, i) => width * i);
+	const inputRange = measure.map((_, i) => width * i);
 
-	const indicator = scrollX?.interpolate({
+	const indicator = scrollX.interpolate({
 		inputRange,
-		outputRange: measure?.map(data => data.width),
+		outputRange: measure.map(data => data.width),
 	});
 
-	const translateX = scrollX?.interpolate({
+	const translateX = scrollX.interpolate({
 		inputRange,
 		outputRange: measure.map(data => data.left),
 	});
 
-	return <Animated.View style={[styles.container, { backgroundColor: color, width: indicator, transform: [{ translateX }] }]} />;
+	return <Animated.View style={[styles.container, { width: indicator, transform: [{ translateX }] }]} />;
 };
 
 const scheme = Appearance.getColorScheme();
