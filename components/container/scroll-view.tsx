@@ -10,7 +10,7 @@ type ScrollViewProps = {
 };
 
 const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>((props, ref) => {
-	const { data, scrollX, style = {}, ...rest } = props;
+	const { data, scrollX: x, style, ...rest } = props;
 
 	const [state, setState] = useState(() => {
 		const { width, height } = Dimensions.get("window");
@@ -22,7 +22,7 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>((props, ref) => {
 		setState({ width, height });
 	};
 
-	const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false });
+	const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x } } }], { useNativeDriver: false });
 
 	return (
 		<Animated.FlatList

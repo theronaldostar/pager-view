@@ -1,5 +1,5 @@
 import { Children, createRef, useEffect, useRef, useState, type ReactElement } from "react";
-import { Animated, View, StyleSheet, type ViewProps } from "react-native";
+import { Animated, StyleSheet, View, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/base";
@@ -13,10 +13,11 @@ type StateProps = {
 
 interface PagerViewProps extends ViewProps {
 	getRef?: GetRefProps;
+	showIndicator?: boolean;
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({ children, getRef, style, tabStyle = {}, ...props }: PagerViewProps) => {
+const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<RefScrollProps>(null);
 
@@ -45,8 +46,8 @@ const PagerView = ({ children, getRef, style, tabStyle = {}, ...props }: PagerVi
 	}, [children]);
 
 	return (
-		<View style={[styles.container, style]} {...props}>
-			<TabBar data={state.tabs} index={state.index} ref={refScroll} getRef={getRef} scrollX={current} style={tabStyle} />
+		<View style={[style, styles.container]} {...props}>
+			<TabBar data={state.tabs} index={state.index} ref={refScroll} getRef={getRef} scrollX={current} showIndicator={showIndicator} style={tabStyle} />
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
 	);

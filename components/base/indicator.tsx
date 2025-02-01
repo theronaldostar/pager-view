@@ -1,4 +1,4 @@
-import { Animated, type FlexStyle } from "react-native";
+import { Animated, Appearance, StyleSheet, type FlexStyle } from "react-native";
 
 import type { MeasureProps } from "pager-view/components/base";
 
@@ -7,24 +7,38 @@ type IndicatorProps = {
 	scrollX: Animated.Value;
 	width: number;
 	style?: FlexStyle;
+	show?: boolean;
 };
 
-const Indicator = ({ measure, scrollX, style, width }: IndicatorProps) => {
-	if (scrollX || !Array.isArray(measure) || measure.length < 2) return null;
+const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
+	console.warn({ measure, scrollX, style, width });
+	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure.map((_, i) => width * i);
 
 	const indicator = scrollX.interpolate({
 		inputRange,
-		outputRange: measure.map(({ width }) => width),
+		outputRange: measure.map(({ width = 0 }) => width),
 	});
 
 	const translateX = scrollX.interpolate({
 		inputRange,
-		outputRange: measure.map(({ left }) => left),
+		outputRange: measure.map(({ left = 0 }) => left),
 	});
 
-	return <Animated.View style={[style, { width: indicator, transform: [{ translateX }] }]} />;
+	return <Animated.View style={[styles.container, style, { width: indicator, transform: [{ translateX }] }]} />;
 };
+
+const scheme = Appearance.getColorScheme();
+
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: scheme === "dark" ? "#fff" : "#475569",
+		borderTopRightRadius: 4,
+		borderTopLeftRadius: 4,
+		height: 4,
+		left: 0,
+	},
+});
 
 export { Indicator, type IndicatorProps };

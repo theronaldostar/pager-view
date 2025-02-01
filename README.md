@@ -113,11 +113,12 @@ export default defineConfig({
 
 ### PagerView
 
-| Name     | Type      | Default  | Description |
-| -------- | --------- | -------- | ----------- |
-| children | ReactNode | Required | -           |
-| style    | FlexStyle | {}       | -           |
-| tabStyle | FlexStyle | {}       | -           |
+| Name          | Type      | Default  | Description |
+| ------------- | --------- | -------- | ----------- |
+| children      | ReactNode | Required | -           |
+| showIndicator | boolean   | true     | -           |
+| style         | FlexStyle | {}       | -           |
+| tabStyle      | FlexStyle | {}       | -           |
 
 ### Pager
 

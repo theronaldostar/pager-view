@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useRef, useState, type RefObject } from "react";
 import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
 
 import { Indicator } from "pager-view/components/base/indicator";
-import { TabItem } from "pager-view/components/base/item";
+import { TabItem } from "pager-view/components/base/tab-item";
 import { useScroll } from "pager-view/hooks";
 import type { GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
@@ -15,10 +15,11 @@ type TabBarProps = {
 	index?: number;
 	getRef?: GetRefProps;
 	scrollX: Animated.Value;
+	showIndicator?: boolean;
 	style?: StyleProps<ViewStyle>;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef, scrollX, style = {} }, tabRef) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef, scrollX, showIndicator, style }, tabRef) => {
 	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
@@ -59,28 +60,19 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 					<TabItem index={id} key={id} scrollRef={tabRef} text={title} width={state.width} />
 				))}
 			</View>
-			<Indicator measure={state.measure} scrollX={scrollX} style={styles.indicator} width={state.width} />
+			<Indicator measure={state.measure} scrollX={scrollX} show={showIndicator} style={{}} width={state.width} />
 		</View>
 	);
 });
 
 const scheme = Appearance.getColorScheme();
 
-const colorScheme = scheme === "dark" ? "#fff" : "#475569";
-
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fff0",
-		borderBottomColor: colorScheme,
+		borderBottomColor: scheme === "dark" ? "#fff" : "#475569",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
-	},
-	indicator: {
-		backgroundColor: colorScheme,
-		borderTopRightRadius: 4,
-		borderTopLeftRadius: 4,
-		height: 4,
-		left: 0,
 	},
 	group: {
 		flexDirection: "row",
