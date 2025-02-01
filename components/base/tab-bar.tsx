@@ -36,17 +36,23 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 		const measure: MeasureProps = [];
 
 		Object.values(data).map(({ ref }) => {
+			console.info("tab-bar(handleEffect):", ref);
 			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
 				measure.push({ left, top, width, height });
-				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
+				console.info("tab-bar(measure):", measure, { left, top, width, height });
+				if (measure.length === Object.keys(data).length) {
+					setState(prev => ({ ...prev, measure }));
+				}
 			});
 		});
 	};
 
 	const handleScroll = useScroll(tabRef, state.width);
 
-	const handleLayout = async (event: LayoutChangeEvent) => {
-		const { width } = event.nativeEvent.layout;
+	const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+		const { width } = layout;
+
+		console.info("tab-bar(handleLayout):", width, layout);
 
 		await setState(prev => ({ ...prev, width }));
 		await handleEffect();
