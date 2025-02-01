@@ -28,25 +28,23 @@ const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props 
 	});
 
 	useEffect(() => {
-		const newState = { index: 0, screens: {}, tabs: {} };
+		const newState = { screens: {}, tabs: {} };
 
 		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
 			const { element, index, title } = child.props;
 
-			const ref = createRef<View>();
-
-			if (index) newState.index = id;
 			newState.screens[id] = { id, element };
-			newState.tabs[id] = { id, ref, title };
+			newState.tabs[id] = { id, ref: createRef(), title };
 
-			if (Object.keys(newState.tabs).length === Children.count(children)) setState(newState);
+			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
+			if (Object.keys(newState.tabs).length === Children.count(children)) setState(prev => ({ ...prev, newState }));
 		});
 
 		return () => {};
 	}, [children]);
 
 	return (
-		<View style={[style, styles.container]} {...props}>
+		<View style={[styles.component, style]} {...props}>
 			<TabBar data={state.tabs} index={state.index} ref={refScroll} getRef={getRef} scrollX={current} showIndicator={showIndicator} style={tabStyle} />
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
@@ -54,10 +52,7 @@ const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props 
 };
 
 const styles = StyleSheet.create({
-	container: {
-		width: "100%",
-		height: "100%",
-	},
+	component: { width: "100%", height: "100%" },
 });
 
 export { PagerView, type ColorProps, type PagerViewProps };

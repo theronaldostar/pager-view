@@ -11,9 +11,6 @@ type IndicatorProps = {
 };
 
 const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
-	console.info("indicator", { measure, scrollX, show, style, width });
-	console.info("indicator", !show || !scrollX || !Array.isArray(measure) || measure.length < 2);
-
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const inputRange = measure.map((_, i) => width * i);

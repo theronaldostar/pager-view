@@ -36,10 +36,8 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 		const measure: MeasureProps = [];
 
 		Object.values(data).map(({ ref }) => {
-			console.info("tab-bar(handleEffect):", ref);
 			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
 				measure.push({ left, top, width, height });
-				console.info("tab-bar(measure):", measure, { left, top, width, height });
 				if (measure.length === Object.keys(data).length) {
 					setState(prev => ({ ...prev, measure }));
 				}
@@ -52,16 +50,14 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 	const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
 		const { width } = layout;
 
-		console.info("tab-bar(handleLayout):", width, layout);
-
 		await setState(prev => ({ ...prev, width }));
 		await handleEffect();
 		handleScroll(index);
 	};
 
 	return (
-		<View onLayout={handleLayout} style={[style, styles.container]}>
-			<View ref={groupRef} style={styles.group}>
+		<View onLayout={handleLayout} style={[style, styles.component]}>
+			<View ref={groupRef} style={styles.container}>
 				{Object.values(data).map(({ id, title }) => (
 					<TabItem index={id} key={id} scrollRef={tabRef} text={title} width={state.width} />
 				))}
@@ -74,13 +70,13 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 const scheme = Appearance.getColorScheme();
 
 const styles = StyleSheet.create({
-	container: {
+	component: {
 		backgroundColor: "#fff0",
 		borderBottomColor: scheme === "dark" ? "#fff" : "#475569",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 	},
-	group: {
+	container: {
 		flexDirection: "row",
 		justifyContent: "space-around",
 		overflow: "hidden",
