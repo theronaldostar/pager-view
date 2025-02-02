@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
+import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/base/indicator";
 import { TabItem } from "pager-view/components/base/tab-item";
@@ -13,13 +13,14 @@ type StateProps = { measure: MeasureProps; width: number };
 type TabBarProps = {
 	data: { [id: number]: TabProps };
 	index?: number;
+	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
-	style?: StyleProps<ViewStyle>;
+	style?: StyleProps;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef, scrollX, showIndicator, style }, tabRef) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style }, tabRef) => {
 	const groupRef = useRef<View>(null);
 
 	const [state, setState] = useState<StateProps>({
@@ -35,12 +36,8 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 	const handleEffect = () => {
 		const measure = [];
 
-		console.info("tab-bar(1):", groupRef, data);
-
-		Object.values(data).forEach(({ ref }) => {
-			console.info("tab-bar(2):", data, ref);
+		Object.values(data).map(({ ref }) => {
 			ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-				console.info("tab-bar(3):", left, top, width, height);
 				measure.push({ left, top, width, height });
 				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
 			});
@@ -55,8 +52,6 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 		await setState(prev => ({ ...prev, width }));
 		await handleEffect();
 		handleScroll(index);
-
-		console.info("tab-bar(4):", state, width, layout, groupRef);
 	};
 
 	return (
@@ -66,7 +61,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 					<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
 				))}
 			</View>
-			<Indicator measure={state.measure} scrollX={scrollX} show={showIndicator} style={{}} width={state.width} />
+			<Indicator measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
 		</View>
 	);
 });

@@ -12,12 +12,13 @@ type StateProps = {
 };
 
 interface PagerViewProps extends ViewProps {
+	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
+const PagerView = ({ children, indicatorStyle, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<Animated.FlatList>(null);
 
@@ -33,12 +34,11 @@ const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props 
 		const screens = {};
 		const tabs = {};
 
-		Children.forEach(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
+		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
 			const { element, index, title } = child.props;
 
-			const ref = createRef<View>();
 			screens[id] = { id, element };
-			tabs[id] = { id, ref, title };
+			tabs[id] = { id, ref: createRef<View>(), title };
 
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
 		});
@@ -46,11 +46,18 @@ const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props 
 		if (Object.keys(tabs).length === Children.count(children)) setState(prev => ({ ...prev, screens, tabs }));
 	}, [children]);
 
-	if (!children) return null;
-
 	return (
 		<View style={[styles.component, style]} {...props}>
-			<TabBar data={state.tabs} index={state.index} ref={refScroll} getRef={getRef} scrollX={current} showIndicator={showIndicator} style={tabStyle} />
+			<TabBar
+				data={state.tabs}
+				index={state.index}
+				indicatorStyle={indicatorStyle}
+				ref={refScroll}
+				getRef={getRef}
+				scrollX={current}
+				showIndicator={showIndicator}
+				style={tabStyle}
+			/>
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
 	);

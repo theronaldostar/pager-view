@@ -1,12 +1,13 @@
-import { Animated, Appearance, StyleSheet, type FlexStyle } from "react-native";
+import { Animated, Appearance, StyleSheet } from "react-native";
 
 import type { MeasureProps } from "pager-view/components/base";
+import type { StyleProps } from "pager-view/types";
 
 type IndicatorProps = {
 	measure: MeasureProps;
 	scrollX: Animated.Value;
 	width: number;
-	style?: FlexStyle;
+	style?: StyleProps;
 	show?: boolean;
 };
 
