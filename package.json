@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.4-experimental-6",
+	"version": "1.0.4-beta-4",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
@@ -16,7 +16,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/theronaldostar/pager-view"
+		"url": "git+https://github.com/theronaldostar/pager-view.git"
 	},
 	"keywords": [
 		"react",

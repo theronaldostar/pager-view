@@ -3,7 +3,7 @@ import { Animated, StyleSheet, View, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/base";
-import type { ColorProps, GetRefProps, RefScrollProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
+import type { ColorProps, GetRefProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
 	index: number;
@@ -19,7 +19,7 @@ interface PagerViewProps extends ViewProps {
 
 const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
-	const refScroll = useRef<RefScrollProps>(null);
+	const refScroll = useRef<Animated.FlatList>(null);
 
 	const [state, setState] = useState<StateProps>({
 		index: 0,
@@ -28,20 +28,25 @@ const PagerView = ({ children, getRef, showIndicator, style, tabStyle, ...props 
 	});
 
 	useEffect(() => {
-		const newState = { screens: {}, tabs: {} };
+		if (!children) return;
 
-		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
+		const screens = {};
+		const tabs = {};
+
+		Children.forEach(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
 			const { element, index, title } = child.props;
 
-			newState.screens[id] = { id, element };
-			newState.tabs[id] = { id, ref: createRef(), title };
+			const ref = createRef<View>();
+			screens[id] = { id, element };
+			tabs[id] = { id, ref, title };
 
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
-			if (Object.keys(newState.tabs).length === Children.count(children)) setState(prev => ({ ...prev, newState }));
 		});
 
-		return () => {};
+		if (Object.keys(tabs).length === Children.count(children)) setState(prev => ({ ...prev, screens, tabs }));
 	}, [children]);
+
+	if (!children) return null;
 
 	return (
 		<View style={[styles.component, style]} {...props}>

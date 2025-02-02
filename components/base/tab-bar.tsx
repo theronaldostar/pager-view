@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState, type RefObject } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { Animated, Appearance, StyleSheet, View, type LayoutChangeEvent, type ViewStyle } from "react-native";
 
 import { Indicator } from "pager-view/components/base/indicator";
@@ -33,14 +33,16 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 	}, [tabRef, state.width]);
 
 	const handleEffect = () => {
-		const measure: MeasureProps = [];
+		const measure = [];
 
-		Object.values(data).map(({ ref }) => {
-			(ref as unknown as RefObject<View>)?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
+		console.info("tab-bar(1):", groupRef, data);
+
+		Object.values(data).forEach(({ ref }) => {
+			console.info("tab-bar(2):", data, ref);
+			ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
+				console.info("tab-bar(3):", left, top, width, height);
 				measure.push({ left, top, width, height });
-				if (measure.length === Object.keys(data).length) {
-					setState(prev => ({ ...prev, measure }));
-				}
+				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
 			});
 		});
 	};
@@ -53,13 +55,15 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, getRef
 		await setState(prev => ({ ...prev, width }));
 		await handleEffect();
 		handleScroll(index);
+
+		console.info("tab-bar(4):", state, width, layout, groupRef);
 	};
 
 	return (
-		<View onLayout={handleLayout} style={[style, styles.component]}>
+		<View onLayout={handleLayout} style={[styles.component, style]}>
 			<View ref={groupRef} style={styles.container}>
-				{Object.values(data).map(({ id, title }) => (
-					<TabItem index={id} key={id} scrollRef={tabRef} text={title} width={state.width} />
+				{Object.values(data).map(({ id, ref, title }) => (
+					<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
 				))}
 			</View>
 			<Indicator measure={state.measure} scrollX={scrollX} show={showIndicator} style={{}} width={state.width} />
