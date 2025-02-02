@@ -113,18 +113,36 @@ export default defineConfig({
 
 ### PagerView
 
-| Name           | Type      | Default   | Description |
-| -------------- | --------- | --------- | ----------- |
-| children       | ReactNode | Required  | -           |
-| indicatorStyle | StyleProp | undefined | -           |
-| showIndicator  | boolean   | true      | -           |
-| style          | StyleProp | undefined | -           |
-| tabStyle       | StyleProp | undefined | -           |
+| Name           | Type      | Default   | Description            |
+| -------------- | --------- | --------- | ---------------------- |
+| children       | ReactNode | Required  | [See](#children)       |
+| indicatorStyle | StyleProp | undefined | [See](#style)          |
+| showIndicator  | boolean   | true      | [See](#show-indicator) |
+| style          | StyleProp | undefined | [See](#style)          |
+| tabStyle       | StyleProp | undefined | [See](#style)          |
 
 ### Pager
 
-| Name   | Type      | Default  | Description |
-| ------ | --------- | -------- | ----------- |
-| index  | boolean   | false    | -           |
-| screen | ReactNode | Required | -           |
-| title  | string    | Required | -           |
+| Name    | Type      | Default  | Description     |
+| ------- | --------- | -------- | --------------- |
+| index   | boolean   | false    | [See](#index)   |
+| element | ReactNode | Required | [See](#element) |
+| title   | string    | Required | [See](#title)   |
+
+### Descriptions
+
+#### PagerView
+
+| Prop          | Description                                                                                                                                                                            |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| children      | <a id="children">The children property must be a Pager component. It defines the content or child elements that are rendered within the parent component, specifically as a Pager.</a> |
+| showIndicator | <a id="show-indicator">A boolean value that controls the visibility of the indicator. Default is true. Set to false to hide it</a>                                                     |
+| style         | <a id="style">Customizes the visual appearance of the component using a style object or an array of objects.</a>                                                                       |
+
+#### Pager
+
+| Prop    | Description                                                                                                                                  |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| index   | <a id="index">Specifies the default page. If multiple Pager components have this property, the last one will be used as the default page</a> |
+| element | <a id="element">Accepts a ReactNode, allowing any valid React element to be passed and rendered inside the component.</a>                    |
+| title   | <a id="title">The title of the tabs or guides, displayed as the label for each tab.</a>                                                      |

@@ -1,7 +1,5 @@
-type ReactNativeProps = { [key: string]: string };
-
-const ReactNative = (alias: ReactNativeProps) => {
-	const extensions = [".css", ".json", ".web.js", ".web.ts", ".web.tsx", ".js", ".ts", ".tsx"];
+const reactNativeWeb = alias => {
+	const extensions = [".css", ".web.mjs", ".web.js", ".web.mts", ".web.ts", ".web.jsx", ".web.tsx", ".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"];
 
 	return {
 		name: "vite:react-native-web",
@@ -23,5 +21,5 @@ const ReactNative = (alias: ReactNativeProps) => {
 	};
 };
 
-export default ReactNative;
-export { ReactNative, type ReactNativeProps };
+export default reactNativeWeb;
+export { reactNativeWeb };
