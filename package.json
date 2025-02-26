@@ -1,13 +1,14 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.5",
+	"version": "1.0.6-experimental",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
 	"author": {
 		"name": "Ronaldo S.",
-		"email": "ronaldo.rs44@gmail.com"
+		"email": "ronaldo.rs44@gmail.com",
+		"url": "https://github.com/theronaldostar"
 	},
 	"contributors": [],
 	"homepage": "https://github.com/theronaldostar/pager-view/discussions",
@@ -52,7 +53,7 @@
 	"dependencies": {
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"react-native": "^0.76.5",
+		"react-native": "~0.76.7",
 		"react-native-web": "^0.19.13"
 	},
 	"devDependencies": {

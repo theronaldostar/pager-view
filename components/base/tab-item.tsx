@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Appearance, Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, useColorScheme } from "react-native";
 
 import { useScroll, type ScrollRef } from "pager-view/hooks";
 
@@ -11,7 +11,19 @@ type TabItemProps = {
 };
 
 const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width }, ref) => {
+	const scheme = useColorScheme();
+
 	const handlePress = useScroll(scrollRef, width);
+
+	const styles = StyleSheet.create({
+		label: {
+			color: scheme === "dark" ? "#fff" : "#475569",
+			fontSize: 20,
+			fontWeight: "600",
+			padding: 4,
+			textAlign: "center",
+		},
+	});
 
 	return (
 		<Pressable onPress={() => handlePress(index)}>
@@ -20,18 +32,6 @@ const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width 
 			</Text>
 		</Pressable>
 	);
-});
-
-const scheme = Appearance.getColorScheme();
-
-const styles = StyleSheet.create({
-	label: {
-		color: scheme === "dark" ? "#fff" : "#475569",
-		fontSize: 20,
-		fontWeight: "600",
-		padding: 4,
-		textAlign: "center",
-	},
 });
 
 export { TabItem, type TabItemProps };

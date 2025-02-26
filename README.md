@@ -6,12 +6,12 @@
 
 ## 📌 Features
 
-- ✅ **Compatible with React 19**.
-- ⭐️ **Support React Native Web**.
-- ⭐️ **Dynamic Sizing**.
-- ⭐️ **Support FlashList**.
+✅ **Compatible with React 19**
+⭐️ **Support React Native Web**
+⭐️ **Dynamic Sizing**
+⭐️ **Support FlashList**
 
-## How to use
+---
 
 ## 📥 Installation & Usage
 
@@ -28,6 +28,8 @@ Or with `yarn`:
 ```shell
 yarn add pager-view
 ```
+
+---
 
 ## 🪄 Quick use
 
@@ -55,6 +57,8 @@ const Component = () => {
 
 export default Component;
 ```
+
+---
 
 ### 🪝 With Hook
 
@@ -92,6 +96,8 @@ const Component = () => {
 
 export default Component;
 ```
+
+---
 
 ## 🛠️ Configuration to use in the web version
 
@@ -151,19 +157,22 @@ const nextConfig = {
 export default nextConfig;
 ```
 
+---
+
 ## 🛠️ Available props
 
 ### PagerView
 
-| Prop           | Type      | Default   | Description                                                                                                                                                       |
-| -------------- | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children       | ReactNode | Required  | The children property must be a Pager component. It defines the content or child elements that are rendered within the parent component, specifically as a Pager. |
-| indicatorStyle | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
-| showIndicator  | boolean   | true      | A boolean value that controls the visibility of the indicator. Default is true. Set to false to hide it                                                           |
-| style          | StyleProp | undefined | <a id="style">Customizes the visual appearance of the component using a style object or an array of objects.</a>                                                  |
-| tabStyle       | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
-
----
+| Prop               | Type      | Default   | Description                                                                                                                                                       |
+| ------------------ | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| beforeTab          | ReactNode | null      | Preferably, a React component to be rendered above the tab bar                                                                                                    |
+| children           | ReactNode | Required  | The children property must be a Pager component. It defines the content or child elements that are rendered within the parent component, specifically as a Pager. |
+| indicatorClassName | string    | undefined | -                                                                                                                                                                 |
+| indicatorStyle     | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
+| showIndicator      | boolean   | true      | A boolean value that controls the visibility of the indicator. Default is true. Set to false to hide it                                                           |
+| style              | StyleProp | undefined | <a id="style">Customizes the visual appearance of the component using a style object or an array of objects.</a>                                                  |
+| tabClassName       | string    | undefined | -                                                                                                                                                                 |
+| tabStyle           | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
 
 ### Pager
 
@@ -173,7 +182,11 @@ export default nextConfig;
 | element | ReactNode | Required | Accepts a ReactNode, allowing any valid React element to be passed and rendered inside the component.                      |
 | title   | string    | Required | The title of the tabs or guides, displayed as the label for each tab.                                                      |
 
+---
+
 ## 🙌 Support & Feedback
 
 📢 Have feedback or found an issue? Open an issue on GitHub!
 💻 **GitHub:** [@TheRonaldoStar](https://github.com/theronaldostar/pager-view/discussions)
+
+---
