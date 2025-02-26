@@ -15,7 +15,7 @@ type IndicatorProps = {
 const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 
-	const scheme = useColorScheme();
+	const scheme = useColorScheme() ?? "light";
 
 	const inputRange = measure.map((_, i) => width * i);
 

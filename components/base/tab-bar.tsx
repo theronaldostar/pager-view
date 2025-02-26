@@ -21,7 +21,7 @@ type TabBarProps = {
 };
 
 const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style }, tabRef) => {
-	const scheme = useColorScheme();
+	const scheme = useColorScheme() ?? "light";
 
 	const groupRef = useRef<View>(null);
 
