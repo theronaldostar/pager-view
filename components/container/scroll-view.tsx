@@ -6,7 +6,7 @@ import type { RefScrollProps, ScreenProps } from "pager-view/types";
 type ScrollViewProps = {
 	data: { [key: number]: ScreenProps };
 	scrollX: Animated.Value;
-	style?: StyleProp<ViewStyle> & { $$css?: boolean; test?: string };
+	style?: StyleProp<ViewStyle>;
 };
 
 const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX, style, ...props }, ref) => {
@@ -31,7 +31,7 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX,
 			onScroll={handleScroll}
 			pagingEnabled
 			ref={ref}
-			renderItem={({ item: { element } }) => <View children={element} style={[{ width: state.width, height: state.height }, style]} />}
+			renderItem={({ item: { element } }) => <View children={element} style={[style, { width: state.width, height: state.height }]} />}
 			showsHorizontalScrollIndicator={false}
 			showsVerticalScrollIndicator={false}
 			keyExtractor={({ id }) => id.toString()}

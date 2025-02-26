@@ -17,7 +17,7 @@ type TabBarProps = {
 	getRef?: GetRefProps;
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
-	style?: StyleProps & { $$css?: boolean; test?: string };
+	style?: StyleProps;
 };
 
 const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style }, tabRef) => {

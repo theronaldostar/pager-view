@@ -6,9 +6,9 @@ import type { StyleProps } from "pager-view/types";
 type IndicatorProps = {
 	measure: MeasureProps;
 	scrollX: Animated.Value;
-	width: number;
-	style?: StyleProps & { $$css?: boolean; test?: string };
 	show?: boolean;
+	style?: StyleProps;
+	width: number;
 };
 
 const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
