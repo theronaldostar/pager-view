@@ -37,10 +37,8 @@ const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, st
 
 		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
 			const { element, index, title } = child.props;
-
 			screens[id] = { id, element };
 			tabs[id] = { id, ref: createRef<View>(), title };
-
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
 		});
 
@@ -66,7 +64,10 @@ const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, st
 };
 
 const styles = StyleSheet.create({
-	component: { width: "100%", height: "100%" },
+	component: {
+		width: "100%",
+		height: "100%",
+	},
 });
 
 export { PagerView, type ColorProps, type PagerViewProps };

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Animated, StyleSheet, useColorScheme } from "react-native";
 
 import type { MeasureProps } from "pager-view/components/base";
@@ -12,7 +13,7 @@ type IndicatorProps = {
 };
 
 const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
-	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2) return null;
+	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 
 	const scheme = useColorScheme();
 
@@ -28,17 +29,18 @@ const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorPro
 		outputRange: measure.map(({ left = 0 }) => left),
 	});
 
-	const styles = StyleSheet.create({
-		container: {
-			backgroundColor: scheme === "dark" ? "#fff" : "#475569",
-			borderTopRightRadius: 4,
-			borderTopLeftRadius: 4,
-			height: 4,
-			left: 0,
-		},
-	});
+	const backgroundColor = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
-	return <Animated.View style={[styles.container, style, { width: indicator, transform: [{ translateX }] }]} />;
+	return <Animated.View style={[styles.container, style, { backgroundColor, width: indicator, transform: [{ translateX }] }]} />;
 };
+
+const styles = StyleSheet.create({
+	container: {
+		borderTopRightRadius: 4,
+		borderTopLeftRadius: 4,
+		height: 4,
+		left: 0,
+	},
+});
 
 export { Indicator, type IndicatorProps };
