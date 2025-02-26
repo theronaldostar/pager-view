@@ -15,8 +15,8 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX,
 		return { width, height };
 	});
 
-	const handleLayout = (event: LayoutChangeEvent) => {
-		const { height, width } = event.nativeEvent.layout;
+	const handleLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+		const { height, width } = layout;
 		setState({ width, height });
 	};
 
@@ -31,7 +31,7 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX,
 			onScroll={handleScroll}
 			pagingEnabled
 			ref={ref}
-			renderItem={({ item: { element } }) => <View children={element} style={[style, { width: state.width, height: state.height }]} />}
+			renderItem={({ item: { element } }) => <View children={element} style={[{ width: state.width, height: state.height }, style]} />}
 			showsHorizontalScrollIndicator={false}
 			showsVerticalScrollIndicator={false}
 			keyExtractor={({ id }) => id.toString()}

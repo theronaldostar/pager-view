@@ -31,7 +31,7 @@ const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorPro
 
 	const backgroundColor = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
-	return <Animated.View style={[styles.container, style, { backgroundColor, width: indicator, transform: [{ translateX }] }]} />;
+	return <Animated.View style={[styles.container, { backgroundColor }, style, { width: indicator, transform: [{ translateX }] }]} />;
 };
 
 const styles = StyleSheet.create({

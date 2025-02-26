@@ -3,6 +3,7 @@ import { Animated, StyleSheet, View, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/base";
+import type { PagerProps } from "pager-view/components/pager";
 import type { ColorProps, GetRefProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
@@ -35,7 +36,7 @@ const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, st
 		const screens = {};
 		const tabs = {};
 
-		Children.map(children as ReactElement<{ element: ReactElement; index?: boolean; title: string }>, (child, id) => {
+		Children.map(children as ReactElement<PagerProps>, (child, id) => {
 			const { element, index, title } = child.props;
 			screens[id] = { id, element };
 			tabs[id] = { id, ref: createRef<View>(), title };

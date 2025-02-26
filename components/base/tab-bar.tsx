@@ -31,7 +31,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	});
 
 	useEffect(() => {
-		if (getRef) getRef(tabRef, state.width);
+		getRef?.(tabRef, state.width);
 		return () => {};
 	}, [tabRef, state.width]);
 
@@ -50,7 +50,6 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 
 	const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
 		const { width } = layout;
-
 		await setState(prev => ({ ...prev, width }));
 		await handleEffect();
 		handleScroll(index);
@@ -59,7 +58,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	const borderBottomColor = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
 	return (
-		<View onLayout={handleLayout} style={[styles.component, style, { borderBottomColor }]}>
+		<View onLayout={handleLayout} style={[styles.component, { borderBottomColor }, style]}>
 			<View ref={groupRef} style={styles.container}>
 				{Object.values(data).map(({ id, ref, title }) => (
 					<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
