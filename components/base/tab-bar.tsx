@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/base/indicator";
@@ -20,8 +20,9 @@ type TabBarProps = {
 	style?: StyleProps;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style }, tabRef) => {
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style = {} }, tabRef) => {
 	const scheme = useColorScheme() ?? "light";
+	const borderBottomColor = scheme === "dark" ? "#fff" : "#475569";
 
 	const groupRef = useRef<View>(null);
 
@@ -54,8 +55,6 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 		await handleEffect();
 		handleScroll(index);
 	};
-
-	const borderBottomColor = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
 	return (
 		<View onLayout={handleLayout} style={[styles.component, { borderBottomColor }, style]}>

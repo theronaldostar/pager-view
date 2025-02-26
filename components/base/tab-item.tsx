@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react";
+import { forwardRef } from "react";
 import { Pressable, StyleSheet, Text, useColorScheme } from "react-native";
 
 import { useScroll, type ScrollRef } from "pager-view/hooks";
@@ -7,10 +7,9 @@ type TabItemProps = { index: number; scrollRef: ScrollRef; text: string; width: 
 
 const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width }, ref) => {
 	const scheme = useColorScheme() ?? "light";
+	const color = scheme === "dark" ? "#fff" : "#475569";
 
 	const handlePress = useScroll(scrollRef, width);
-
-	const color = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
 	return (
 		<Pressable onPress={() => handlePress(index)}>

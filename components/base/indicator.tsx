@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Animated, StyleSheet, useColorScheme } from "react-native";
 
 import type { MeasureProps } from "pager-view/components/base";
@@ -12,10 +11,11 @@ type IndicatorProps = {
 	width: number;
 };
 
-const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
+const Indicator = ({ measure, scrollX, show = true, style = {}, width = 0 }: IndicatorProps) => {
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 
 	const scheme = useColorScheme() ?? "light";
+	const backgroundColor = scheme === "dark" ? "#fff" : "#475569";
 
 	const inputRange = measure.map((_, i) => width * i);
 
@@ -28,8 +28,6 @@ const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorPro
 		inputRange,
 		outputRange: measure.map(({ left = 0 }) => left),
 	});
-
-	const backgroundColor = useMemo(() => (scheme === "dark" ? "#fff" : "#475569"), [scheme]);
 
 	return <Animated.View style={[styles.container, { backgroundColor }, style, { width: indicator, transform: [{ translateX }] }]} />;
 };
