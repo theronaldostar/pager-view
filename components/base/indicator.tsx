@@ -4,7 +4,6 @@ import type { MeasureProps } from "pager-view/components/base";
 import type { StyleProps } from "pager-view/types";
 
 type IndicatorProps = {
-	className?: string;
 	measure: MeasureProps;
 	scrollX: Animated.Value;
 	width: number;
@@ -12,7 +11,7 @@ type IndicatorProps = {
 	show?: boolean;
 };
 
-const Indicator = ({ className, measure, scrollX, show = true, style, width }: IndicatorProps) => {
+const Indicator = ({ measure, scrollX, show = true, style, width }: IndicatorProps) => {
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2) return null;
 
 	const scheme = useColorScheme();
@@ -39,7 +38,7 @@ const Indicator = ({ className, measure, scrollX, show = true, style, width }: I
 		},
 	});
 
-	return <Animated.View style={[styles.container, style, { width: indicator, transform: [{ translateX }], $$css: true, test: className }]} />;
+	return <Animated.View style={[styles.container, style, { width: indicator, transform: [{ translateX }] }]} />;
 };
 
 export { Indicator, type IndicatorProps };

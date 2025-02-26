@@ -12,27 +12,14 @@ type StateProps = {
 };
 
 interface PagerViewProps extends ViewProps {
-	beforeTab?: ReactNode;
-	indicatorClassName?: string;
+	before?: ReactNode;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
 	showIndicator?: boolean;
-	tabClassName?: string;
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({
-	beforeTab = null,
-	children,
-	indicatorStyle,
-	indicatorClassName,
-	getRef,
-	showIndicator,
-	style,
-	tabStyle,
-	tabClassName,
-	...props
-}: PagerViewProps) => {
+const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<Animated.FlatList>(null);
 
@@ -62,11 +49,10 @@ const PagerView = ({
 
 	return (
 		<View style={[styles.component, style]} {...props}>
-			{beforeTab}
+			{before}
 			<TabBar
 				data={state.tabs}
 				index={state.index}
-				indicatorClassName={indicatorClassName}
 				indicatorStyle={indicatorStyle}
 				ref={refScroll}
 				getRef={getRef}
@@ -74,7 +60,7 @@ const PagerView = ({
 				showIndicator={showIndicator}
 				style={tabStyle}
 			/>
-			<ScrollView className={tabClassName} data={state.screens} ref={refScroll} scrollX={current} style={style} />
+			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
 	);
 };

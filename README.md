@@ -116,10 +116,9 @@ export default defineConfig({
 	define: {
 		__DEV__: JSON.stringify(env.NODE_ENV === "development"),
 		global: "window",
-		process: { env: {} },
+		process: { env: { EXPO_OS: "web" } },
 	},
 	optimizeDeps: {
-		force: true,
 		esbuildOptions: {
 			loader: { ".js": "jsx" },
 			resolveExtensions: extensions,
@@ -130,6 +129,7 @@ export default defineConfig({
 		alias: { "react-native": "react-native-web" },
 		extensions,
 	},
+	server: { hmr: true, host: true, open: true },
 });
 ```
 
@@ -163,16 +163,14 @@ export default nextConfig;
 
 ### PagerView
 
-| Prop               | Type      | Default   | Description                                                                                                                                                       |
-| ------------------ | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| beforeTab          | ReactNode | null      | Preferably, a React component to be rendered above the tab bar                                                                                                    |
-| children           | ReactNode | Required  | The children property must be a Pager component. It defines the content or child elements that are rendered within the parent component, specifically as a Pager. |
-| indicatorClassName | string    | undefined | -                                                                                                                                                                 |
-| indicatorStyle     | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
-| showIndicator      | boolean   | true      | A boolean value that controls the visibility of the indicator. Default is true. Set to false to hide it                                                           |
-| style              | StyleProp | undefined | <a id="style">Customizes the visual appearance of the component using a style object or an array of objects.</a>                                                  |
-| tabClassName       | string    | undefined | -                                                                                                                                                                 |
-| tabStyle           | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
+| Prop           | Type      | Default   | Description                                                                                                                                                       |
+| -------------- | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| before         | ReactNode | undefined | Preferably, a React component to be rendered above the tab bar                                                                                                    |
+| children       | ReactNode | Required  | The children property must be a Pager component. It defines the content or child elements that are rendered within the parent component, specifically as a Pager. |
+| indicatorStyle | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
+| showIndicator  | boolean   | true      | A boolean value that controls the visibility of the indicator. Default is true. Set to false to hide it                                                           |
+| style          | StyleProp | undefined | <a id="style">Customizes the visual appearance of the component using a style object or an array of objects.</a>                                                  |
+| tabStyle       | StyleProp | undefined | [Go to](#style)                                                                                                                                                   |
 
 ### Pager
 

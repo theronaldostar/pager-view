@@ -4,13 +4,12 @@ import { Animated, Dimensions, View, type LayoutChangeEvent, type StyleProp, typ
 import type { RefScrollProps, ScreenProps } from "pager-view/types";
 
 type ScrollViewProps = {
-	className?: string;
 	data: { [key: number]: ScreenProps };
 	scrollX: Animated.Value;
 	style?: StyleProp<ViewStyle> & { $$css?: boolean; test?: string };
 };
 
-const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ className, data, scrollX, style, ...props }, ref) => {
+const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX, style, ...props }, ref) => {
 	const [state, setState] = useState(() => {
 		const { width, height } = Dimensions.get("window");
 		return { width, height };
@@ -32,9 +31,7 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ className, dat
 			onScroll={handleScroll}
 			pagingEnabled
 			ref={ref}
-			renderItem={({ item: { element } }) => (
-				<View children={element} style={[{ width: state.width, height: state.height, $$css: true, test: className }, style]} />
-			)}
+			renderItem={({ item: { element } }) => <View children={element} style={[{ width: state.width, height: state.height }, style]} />}
 			showsHorizontalScrollIndicator={false}
 			showsVerticalScrollIndicator={false}
 			keyExtractor={({ id }) => id.toString()}
