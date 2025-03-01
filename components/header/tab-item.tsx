@@ -13,13 +13,13 @@ const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width 
 
 	return (
 		<Pressable onPress={() => handlePress(index)}>
-			<Text children={text} ref={ref} style={[styles.label, { color }]} ellipsizeMode="middle" numberOfLines={1} />
+			<Text children={text} ref={ref} style={[styles.text, { color }]} ellipsizeMode="middle" numberOfLines={1} />
 		</Pressable>
 	);
 });
 
 const styles = StyleSheet.create({
-	label: {
+	text: {
 		fontSize: 20,
 		fontWeight: "600",
 		padding: 4,

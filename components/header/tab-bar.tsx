@@ -1,8 +1,8 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
-import { Indicator } from "pager-view/components/base/indicator";
-import { TabItem } from "pager-view/components/base/tab-item";
+import { Indicator } from "pager-view/components/header/indicator";
+import { TabItem } from "pager-view/components/header/tab-item";
 import { useScroll } from "pager-view/hooks";
 import type { GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
@@ -11,7 +11,7 @@ type MeasureProps = { left: number; top: number; width: number; height: number }
 type StateProps = { measure: MeasureProps; width: number };
 
 type TabBarProps = {
-	data: { [id: number]: TabProps };
+	data: Record<number, TabProps>;
 	index?: number;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
@@ -31,14 +31,10 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 		measure: [],
 	});
 
-	useEffect(() => {
-		getRef?.(tabRef, state.width);
-		return () => {};
-	}, [tabRef, state.width]);
+	useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
 
 	const handleEffect = () => {
 		const measure = [];
-
 		Object.values(data).map(({ ref }) => {
 			ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
 				measure.push({ left, top, width, height });
@@ -57,7 +53,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 	};
 
 	return (
-		<View onLayout={handleLayout} style={[styles.component, { borderBottomColor }, style]}>
+		<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
 			<View ref={groupRef} style={styles.container}>
 				{Object.values(data).map(({ id, ref, title }) => (
 					<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
@@ -69,8 +65,8 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indica
 });
 
 const styles = StyleSheet.create({
-	component: {
-		backgroundColor: "#fff0",
+	main: {
+		backgroundColor: "rgba(255, 255, 255, 0)",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 	},

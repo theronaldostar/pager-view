@@ -4,7 +4,7 @@ import { Animated, Dimensions, View, type LayoutChangeEvent, type StyleProp, typ
 import type { RefScrollProps, ScreenProps } from "pager-view/types";
 
 type ScrollViewProps = {
-	data: { [key: number]: ScreenProps };
+	data: Record<number, ScreenProps>;
 	scrollX: Animated.Value;
 	style?: StyleProp<ViewStyle>;
 };

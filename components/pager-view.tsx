@@ -2,14 +2,14 @@ import { Children, createRef, ReactNode, useEffect, useRef, useState, type React
 import { Animated, StyleSheet, View, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
-import { TabBar } from "pager-view/components/base";
+import { TabBar } from "pager-view/components/header";
 import type { PagerProps } from "pager-view/components/pager";
-import type { ColorProps, GetRefProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
+import type { GetRefProps, ScreenProps, StyleProps, TabProps } from "pager-view/types";
 
 type StateProps = {
 	index: number;
-	screens: { [key: number]: ScreenProps };
-	tabs: { [key: number]: TabProps };
+	screens: Record<number, ScreenProps>;
+	tabs: Record<number, TabProps>;
 };
 
 interface PagerViewProps extends ViewProps {
@@ -31,23 +31,23 @@ const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, st
 	});
 
 	useEffect(() => {
-		if (!children) return;
-
 		const screens = {};
 		const tabs = {};
 
+		if (!children) return;
+
 		Children.map(children as ReactElement<PagerProps>, (child, id) => {
-			const { element, index, title } = child.props;
+			const { index, title, element } = child.props;
 			screens[id] = { id, element };
 			tabs[id] = { id, ref: createRef<View>(), title };
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
 		});
 
 		if (Object.keys(tabs).length === Children.count(children)) setState(prev => ({ ...prev, screens, tabs }));
-	}, [children]);
+	}, [before, children]);
 
 	return (
-		<View style={[styles.component, style]} {...props}>
+		<View style={[styles.container, style]} {...props}>
 			{before}
 			<TabBar
 				data={state.tabs}
@@ -65,10 +65,11 @@ const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, st
 };
 
 const styles = StyleSheet.create({
-	component: {
+	container: {
 		width: "100%",
 		height: "100%",
 	},
 });
 
-export { PagerView, type ColorProps, type PagerViewProps };
+export default PagerView;
+export { PagerView, type PagerViewProps };
