@@ -169,6 +169,7 @@ export default nextConfig;
 |---------------|------------|----------|-------------|
 | `before`      | `ReactNode` | `undefined` | Optional component rendered above the tab bar. |
 | `children`    | `ReactNode` | **Required** | Must contain `Pager` components defining the pages. |
+| `indicatorColor` | `A valid color` | `undefined` | It must follow one of the following patterns: `#`, `rgb`, `rgba`, `hsl`, or `hwb`. |
 | `indicatorStyle` | `StyleProp` | `undefined` | Styling for the indicator. |
 | `showIndicator` | `boolean` | `true` | Controls the visibility of the indicator. |
 | `style`       | `StyleProp` | `undefined` | Custom styling for the component. |

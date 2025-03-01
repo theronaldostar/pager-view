@@ -4,7 +4,7 @@ import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } fr
 import { Indicator } from "pager-view/components/header/indicator";
 import { TabItem } from "pager-view/components/header/tab-item";
 import { useScroll } from "pager-view/hooks";
-import type { GetRefProps, StyleProps, TabProps } from "pager-view/types";
+import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
 type MeasureProps = { left: number; top: number; width: number; height: number }[];
 
@@ -13,6 +13,7 @@ type StateProps = { measure: MeasureProps; width: number };
 type TabBarProps = {
 	data: Record<number, TabProps>;
 	index?: number;
+	indicatorColor?: ColorProps;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
 	scrollX: Animated.Value;
@@ -20,49 +21,51 @@ type TabBarProps = {
 	style?: StyleProps;
 };
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(({ data, index, indicatorStyle, getRef, scrollX, showIndicator, style = {} }, tabRef) => {
-	const scheme = useColorScheme() ?? "light";
-	const borderBottomColor = scheme === "dark" ? "#fff" : "#475569";
+const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
+	({ data, index, indicatorColor, indicatorStyle, getRef, scrollX, showIndicator, style = {} }, tabRef) => {
+		const scheme = useColorScheme() ?? "light";
+		const borderBottomColor = scheme === "dark" ? "#fff" : "#475569";
 
-	const groupRef = useRef<View>(null);
+		const groupRef = useRef<View>(null);
 
-	const [state, setState] = useState<StateProps>({
-		width: 0,
-		measure: [],
-	});
-
-	useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
-
-	const handleEffect = () => {
-		const measure = [];
-		Object.values(data).map(({ ref }) => {
-			ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-				measure.push({ left, top, width, height });
-				if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
-			});
+		const [state, setState] = useState<StateProps>({
+			width: 0,
+			measure: [],
 		});
-	};
 
-	const handleScroll = useScroll(tabRef, state.width);
+		useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
 
-	const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
-		const { width } = layout;
-		await setState(prev => ({ ...prev, width }));
-		await handleEffect();
-		handleScroll(index);
-	};
+		const handleEffect = () => {
+			const measure = [];
+			Object.values(data).map(({ ref }) => {
+				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
+					measure.push({ left, top, width, height });
+					if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
+				});
+			});
+		};
 
-	return (
-		<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
-			<View ref={groupRef} style={styles.container}>
-				{Object.values(data).map(({ id, ref, title }) => (
-					<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
-				))}
+		const handleScroll = useScroll(tabRef, state.width);
+
+		const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+			const { width } = layout;
+			await setState(prev => ({ ...prev, width }));
+			await handleEffect();
+			handleScroll(index);
+		};
+
+		return (
+			<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
+				<View ref={groupRef} style={styles.container}>
+					{Object.values(data).map(({ id, ref, title }) => (
+						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
+					))}
+				</View>
+				<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
 			</View>
-			<Indicator measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
-		</View>
-	);
-});
+		);
+	},
+);
 
 const styles = StyleSheet.create({
 	main: {
