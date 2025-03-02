@@ -49,7 +49,7 @@ const Component = () => {
 	);
 
 	return (
-		<PagerView headerColor="#1a71ff" before={<Header />}>
+		<PagerView headerColor="#336aea" before={<Header />}>
 			<Pager title="First Page" element={<Screen />} />
 			<Pager index title="Second Page" element={<Text>Second page</Text>} />
 			<Pager index={false} title="Third Page" element={<Text>Third page</Text>} />
@@ -128,7 +128,10 @@ export default defineConfig({
 	},
 	plugins: [react()],
 	resolve: {
-		alias: { "react-native": "react-native-web" },
+		alias: {
+			"react-native": "react-native-web",
+			"react-native-svg": "react-native-svg-web",
+		},
 		extensions,
 	},
 	server: { hmr: true, host: true, open: true },
@@ -150,6 +153,7 @@ const nextConfig = {
 		config.resolve.alias = {
 			...(config.resolve.alias || {}),
 			"react-native$": "react-native-web",
+			"react-native-svg": "react-native-svg-web",
 		};
 		config.resolve.extensions = [...config.resolve.extensions, ...extensions];
 		return config;

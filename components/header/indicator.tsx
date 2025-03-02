@@ -13,10 +13,9 @@ type IndicatorProps = {
 };
 
 const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0 }: IndicatorProps) => {
-	if (!show || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
-	if (!scrollX || !(scrollX instanceof Animated.Value)) return null;
+	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 
-	const backgroundColor = color ?? "#1a71ff";
+	const backgroundColor = color ?? "#336aea";
 
 	const inputRange = measure.map((_, i) => width * i);
 

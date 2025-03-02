@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.7-canary-nmovkmb8",
+	"version": "1.0.7-canary-rngf3yq3",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
@@ -75,6 +75,8 @@
 		"react": ">=18.2.0",
 		"react-dom": ">=18.2.0",
 		"react-native": ">=0.72.3",
+		"react-native-svg": ">=15.1.0",
+		"react-native-svg-web": ">=1.0.0",
 		"react-native-web": ">=0.19.10"
 	},
 	"packageManager": "yarn@4.6.0"
