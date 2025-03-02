@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.7-canary-0j9pc68k",
+	"version": "1.0.7",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",

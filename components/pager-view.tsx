@@ -35,7 +35,7 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 		const screens = {},
 			tabs = {};
 
-		if (!children) return;
+		if (!children) return null;
 
 		Children.map(children as ReactElement<PagerProps>, (child, id) => {
 			const { index, title, element } = child.props;

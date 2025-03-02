@@ -2,7 +2,6 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/header/indicator";
-import { Skeleton } from "pager-view/components/header/skeleton";
 import { TabItem } from "pager-view/components/header/tab-item";
 import { useScroll } from "pager-view/hooks";
 import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
@@ -34,21 +33,17 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 			measure: [],
 		});
 
-		const isLoading = state.measure.length === 0;
-
 		useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
 
 		const handleEffect = () => {
-			const measure: MeasureProps = [];
 			let count = 0;
+			const measure: MeasureProps = [];
 
 			Object.values(data).forEach(({ ref }, i, arr) => {
 				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-					measure.push({ left, top, width, height });
 					count++;
-					if (count === arr.length) {
-						setState(prev => ({ ...prev, measure }));
-					}
+					measure.push({ left, top, width, height });
+					if (count === arr.length) setState(prev => ({ ...prev, measure }));
 				});
 			});
 		};
@@ -64,25 +59,12 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 
 		return (
 			<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
-				{isLoading ? (
-					<Skeleton quantity={Object.values(data).length} />
-				) : (
-					<>
-						<View ref={groupRef} style={styles.container}>
-							{Object.values(data).map(({ id, ref, title }) => (
-								<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
-							))}
-						</View>
-						<Indicator
-							color={headerColor}
-							measure={state.measure}
-							scrollX={scrollX}
-							show={showIndicator}
-							style={indicatorStyle}
-							width={state.width}
-						/>
-					</>
-				)}
+				<View ref={groupRef} style={styles.container}>
+					{Object.values(data).map(({ id, ref, title }) => (
+						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
+					))}
+				</View>
+				<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
 			</View>
 		);
 	},
