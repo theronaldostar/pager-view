@@ -34,14 +34,21 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 			measure: [],
 		});
 
+		const isLoading = state.measure.length === 0;
+
 		useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
 
 		const handleEffect = () => {
-			const measure = [];
-			Object.values(data).map(({ ref }) => {
+			const measure: MeasureProps = [];
+			let count = 0;
+
+			Object.values(data).forEach(({ ref }, i, arr) => {
 				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
 					measure.push({ left, top, width, height });
-					if (measure.length === Object.keys(data).length) setState(prev => ({ ...prev, measure }));
+					count++;
+					if (count === arr.length) {
+						setState(prev => ({ ...prev, measure }));
+					}
 				});
 			});
 		};
@@ -57,7 +64,9 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 
 		return (
 			<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
-				{state.measure.length >= 1 ? (
+				{isLoading ? (
+					<Skeleton quantity={Object.values(data).length} />
+				) : (
 					<>
 						<View ref={groupRef} style={styles.container}>
 							{Object.values(data).map(({ id, ref, title }) => (
@@ -73,8 +82,6 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 							width={state.width}
 						/>
 					</>
-				) : (
-					<Skeleton quantity={Object.values(data).length} />
 				)}
 			</View>
 		);
