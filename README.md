@@ -49,7 +49,7 @@ const Component = () => {
 	);
 
 	return (
-		<PagerView before={<Header />}>
+		<PagerView headerColor="#1a71ff" before={<Header />}>
 			<Pager title="First Page" element={<Screen />} />
 			<Pager index title="Second Page" element={<Text>Second page</Text>} />
 			<Pager index={false} title="Third Page" element={<Text>Third page</Text>} />
@@ -165,30 +165,30 @@ export default nextConfig;
 
 ### 📟 `PagerView`
 
-| Prop             | Type        | Default      | Description                                         |
-|------------------|-------------|--------------|-----------------------------------------------------|
-| `before`         | react-node  | `undefined`  | Optional component rendered above the tab bar.      |
-| `children`       | react-node  | `required`   | Must contain `Pager` components defining the pages. |
-| `indicatorStyle` | react-style | `undefined`  | Styling for the indicator.                          |
-| `getRef`         | function    | `undefined`  | Gets the reference of the pages and their width     |
-| `headerColor`    | color       | `undefined`  | It must follow one of the following patterns: `#`, `rgb`, `rgba`, `hsl`, or `hwb`.  |
-| `showIndicator`  | boolean     | `true`       | Controls the visibility of the indicator.           |
-| `style`          | react-style | `undefined`  | Custom styling for the component.                   |
-| `tabStyle`       | react-style | `undefined`  | Styling for the tabs.                               |
+| Prop               | Type          | Default     | Description                                        |
+|--------------------|---------------|-------------|----------------------------------------------------|
+| **before**         | `react-node`  | `undefined` | Optional component rendered above the tab bar.     |
+| **children**       | `react-node`  | `required`  | Must contain `Pager` components defining the pages.|
+| **indicatorStyle** | `react-style` | `undefined` | Styling for the indicator.                         |
+| **getRef**         | `function`    | `undefined` | Gets the reference of the pages and their width    |
+| **headerColor**    | `color`       | `undefined` | It must follow one of the following patterns: `#`, `rgb`, `rgba`, `hsl`, or `hwb`.      |
+| **showIndicator**  | `boolean`     | `true`      | Controls the visibility of the indicator.          |
+| **style**          | `react-style` | `undefined` | Custom styling for the component.                  |
+| **tabStyle**       | `react-style` | `undefined` | Styling for the tabs.                              |
 
 ### 🪟 `Pager`
 
-| Prop      | Type       | Default      | Description                     |
-|-----------|------------|--------------|---------------------------------|
-| `index`   | boolean    | `false`      | Defines the default page. If multiple have this property, the last one is used. |
-| `title`   | string     | `required`   | Title of the corresponding tab. |
-| `element` | react-node | `required`   | React component to be rendered. |
+| Prop        | Type         | Default    | Description                     |
+|-------------|--------------|------------|---------------------------------|
+| **index**   | `boolean`    | `false`    | Defines the default page. If multiple have this property, the last one is used. |
+| **title**   | `string`     | `required` | Title of the corresponding tab. |
+| **element** | `react-node` | `required` | React component to be rendered. |
 
 ---
 
 ## 🙌 Support & Feedback
 
-📢 Found an issue or have suggestions? Open an issue on GitHub!
+📢 Found an issue or have suggestions? Open an issue on GitHub or send a message on any of these social networks
 
 💻 **GitHub:** [@TheRonaldoStar](https://github.com/theronaldostar/pager-view/discussions)<br/>
 🐦 **X/Twitter** [@TheRonaldoStar](https://x.com/theronaldostar)<br/>

@@ -1,4 +1,4 @@
-import { Animated, StyleSheet, useColorScheme } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 
 import type { MeasureProps } from "pager-view/components/header";
 import type { ColorProps, StyleProps } from "pager-view/types";
@@ -16,8 +16,7 @@ const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0
 	if (!show || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 	if (!scrollX || !(scrollX instanceof Animated.Value)) return null;
 
-	const scheme = useColorScheme() || "light";
-	const backgroundColor = color ?? (scheme === "dark" ? "#fff" : "#475569");
+	const backgroundColor = color ?? "#1a71ff";
 
 	const inputRange = measure.map((_, i) => width * i);
 

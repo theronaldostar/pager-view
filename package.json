@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.0.7-experimental-dsql0nhm",
+	"version": "1.0.7-canary-nmovkmb8",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
@@ -20,25 +20,25 @@
 		"url": "git+https://github.com/theronaldostar/pager-view.git"
 	},
 	"keywords": [
+		"19",
+		"android",
+		"ios",
+		"monorepo",
+		"pager",
+		"pager-view",
+		"pagination",
+		"react-19",
 		"react",
 		"react-native",
 		"react-native-web",
-		"pager-view",
-		"pager",
-		"monorepo",
-		"ios",
-		"android",
 		"web",
-		"WhatsApp",
-		"19",
-		"react19"
+		"WhatsApp"
 	],
 	"files": [
 		".vscode/",
 		".yarn/",
 		"components/",
 		"hooks/",
-		"plugin/",
 		"types/",
 		".editorconfig",
 		".gitignore",
