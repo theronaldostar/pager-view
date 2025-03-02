@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
+import { Animated, Platform, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/header/indicator";
 import { TabItem } from "pager-view/components/header/tab-item";
@@ -36,7 +36,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 		useEffect(() => {
 			getRef?.(tabRef, state.width);
 			handleEffect();
-		}, [tabRef, state.width]);
+		}, [data, tabRef, state.width]);
 
 		const handleEffect = () => {
 			const measure: MeasureProps = [];
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 		justifyContent: "center",
-		minHeight: 40,
+		minHeight: Platform.OS === "web" ? 40 : "auto",
 	},
 	container: {
 		flexDirection: "row",
