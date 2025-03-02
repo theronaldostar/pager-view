@@ -13,7 +13,9 @@ interface IndicatorProps {
 }
 
 const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0 }: IndicatorProps) => {
+	console.log("Indicator(before):", { color, measure, scrollX, show, style, width });
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
+	console.log({ measure, scrollX, width });
 
 	const backgroundColor = color ?? "#336aea";
 
