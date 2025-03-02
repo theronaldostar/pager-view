@@ -75,5 +75,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PagerView;
 export { PagerView, type PagerViewProps };
