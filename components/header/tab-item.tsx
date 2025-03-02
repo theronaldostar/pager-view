@@ -24,7 +24,13 @@ const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width 
 });
 
 const styles = StyleSheet.create({
-	text: { fontSize: 20, fontWeight: 600, padding: 4, textAlign: "center" },
+	text: {
+		fontSize: 20,
+		fontWeight: 600,
+		lineHeight: 1,
+		padding: 4,
+		textAlign: "center",
+	},
 });
 
 export { TabItem, type TabItemProps };

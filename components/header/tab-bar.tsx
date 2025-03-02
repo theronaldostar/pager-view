@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 		justifyContent: "center",
-		minHeight: 38,
+		minHeight: 33,
 	},
 	container: {
 		flexDirection: "row",
