@@ -6,7 +6,7 @@ import { useScroll, type ScrollRef } from "pager-view/hooks";
 type TabItemProps = { index: number; scrollRef: ScrollRef; text: string; width: number };
 
 const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, width }, ref) => {
-	const scheme = useColorScheme() ?? "light";
+	const scheme = useColorScheme() || "light";
 	const color = scheme === "dark" ? "#fff" : "#475569";
 
 	const handlePress = useScroll(scrollRef, width);

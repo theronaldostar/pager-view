@@ -16,7 +16,7 @@ const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0
 	if (!show || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 	if (!scrollX || !(scrollX instanceof Animated.Value)) return null;
 
-	const scheme = useColorScheme() ?? "light";
+	const scheme = useColorScheme() || "light";
 	const backgroundColor = color ?? (scheme === "dark" ? "#fff" : "#475569");
 
 	const inputRange = measure.map((_, i) => width * i);

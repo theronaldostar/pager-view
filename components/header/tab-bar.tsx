@@ -13,18 +13,18 @@ type StateProps = { measure: MeasureProps; width: number };
 type TabBarProps = {
 	data: Record<number, TabProps>;
 	index?: number;
-	indicatorColor?: ColorProps;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
+	headerColor?: ColorProps;
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
 	style?: StyleProps;
 };
 
 const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
-	({ data, index, indicatorColor, indicatorStyle, getRef, scrollX, showIndicator, style = {} }, tabRef) => {
-		const scheme = useColorScheme() ?? "light";
-		const borderBottomColor = scheme === "dark" ? "#fff" : "#475569";
+	({ data, index, indicatorStyle, getRef, headerColor, scrollX, showIndicator, style = {} }, tabRef) => {
+		const scheme = useColorScheme() || "light";
+		const borderBottomColor = headerColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
 		const groupRef = useRef<View>(null);
 
@@ -61,7 +61,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
 					))}
 				</View>
-				<Indicator color={indicatorColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
+				<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
 			</View>
 		);
 	},

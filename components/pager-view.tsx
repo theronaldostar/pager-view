@@ -14,14 +14,14 @@ type StateProps = {
 
 interface PagerViewProps extends ViewProps {
 	before?: ReactNode;
-	indicatorColor?: ColorProps;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
+	headerColor?: ColorProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
 }
 
-const PagerView = ({ before, children, indicatorColor, indicatorStyle, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
+const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<Animated.FlatList>(null);
 
@@ -53,10 +53,10 @@ const PagerView = ({ before, children, indicatorColor, indicatorStyle, getRef, s
 			<TabBar
 				data={state.tabs}
 				index={state.index}
-				indicatorColor={indicatorColor}
 				indicatorStyle={indicatorStyle}
 				ref={refScroll}
 				getRef={getRef}
+				headerColor={headerColor}
 				scrollX={current}
 				showIndicator={showIndicator}
 				style={tabStyle}

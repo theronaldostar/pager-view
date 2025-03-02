@@ -163,25 +163,26 @@ export default nextConfig;
 
 ## ⚙️ Available Props
 
-### `PagerView`
+### 📟 `PagerView`
 
-| Prop           | Type       | Default   | Description |
-|---------------|------------|----------|-------------|
-| `before`      | `ReactNode` | `undefined` | Optional component rendered above the tab bar. |
-| `children`    | `ReactNode` | **Required** | Must contain `Pager` components defining the pages. |
-| `indicatorColor` | `A valid color` | `undefined` | It must follow one of the following patterns: `#`, `rgb`, `rgba`, `hsl`, or `hwb`. |
-| `indicatorStyle` | `StyleProp` | `undefined` | Styling for the indicator. |
-| `showIndicator` | `boolean` | `true` | Controls the visibility of the indicator. |
-| `style`       | `StyleProp` | `undefined` | Custom styling for the component. |
-| `tabStyle`    | `StyleProp` | `undefined` | Styling for the tabs. |
+| Prop             | Type        | Default      | Description                                         |
+|------------------|-------------|--------------|-----------------------------------------------------|
+| `before`         | react-node  | `undefined`  | Optional component rendered above the tab bar.      |
+| `children`       | react-node  | `required`   | Must contain `Pager` components defining the pages. |
+| `indicatorStyle` | react-style | `undefined`  | Styling for the indicator.                          |
+| `getRef`         | function    | `undefined`  | Gets the reference of the pages and their width     |
+| `headerColor`    | color       | `undefined`  | It must follow one of the following patterns: `#`, `rgb`, `rgba`, `hsl`, or `hwb`.  |
+| `showIndicator`  | boolean     | `true`       | Controls the visibility of the indicator.           |
+| `style`          | react-style | `undefined`  | Custom styling for the component.                   |
+| `tabStyle`       | react-style | `undefined`  | Styling for the tabs.                               |
 
-### `Pager`
+### 🪟 `Pager`
 
-| Prop    | Type       | Default  | Description |
-|---------|------------|---------|-------------|
-| `index` | `boolean`  | `false` | Defines the default page. If multiple have this property, the last one is used. |
-| `title`  | `string`    | **Required** | Title of the corresponding tab. |
-| `element` | `ReactNode` | **Required** | React component to be rendered. |
+| Prop      | Type       | Default      | Description                     |
+|-----------|------------|--------------|---------------------------------|
+| `index`   | boolean    | `false`      | Defines the default page. If multiple have this property, the last one is used. |
+| `title`   | string     | `required`   | Title of the corresponding tab. |
+| `element` | react-node | `required`   | React component to be rendered. |
 
 ---
 
