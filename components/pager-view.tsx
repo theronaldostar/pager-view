@@ -44,7 +44,9 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
 		});
 
-		if (Object.keys(tabs).length === Children.count(children)) setState(prev => ({ ...prev, screens, tabs }));
+		if (Object.keys(tabs).length === Children.count(children)) {
+			setState(prev => ({ ...prev, screens, tabs }));
+		}
 	}, [before, children]);
 
 	return (

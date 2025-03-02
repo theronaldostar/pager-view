@@ -130,7 +130,6 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"react-native": "react-native-web",
-			"react-native-svg": "react-native-svg-web",
 		},
 		extensions,
 	},
@@ -153,7 +152,6 @@ const nextConfig = {
 		config.resolve.alias = {
 			...(config.resolve.alias || {}),
 			"react-native$": "react-native-web",
-			"react-native-svg": "react-native-svg-web",
 		};
 		config.resolve.extensions = [...config.resolve.extensions, ...extensions];
 		return config;

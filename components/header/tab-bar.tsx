@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useLayoutEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/header/indicator";
@@ -8,7 +8,7 @@ import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/t
 
 type MeasureProps = { left: number; top: number; width: number; height: number }[];
 
-type StateProps = { measure: MeasureProps; width: number };
+type StateProps = { measure: MeasureProps; width: number; ready: boolean };
 
 interface TabBarProps {
 	data: Record<number, TabProps>;
@@ -27,31 +27,32 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 		const borderBottomColor = headerColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
 		const groupRef = useRef<View>(null);
+		const [state, setState] = useState<StateProps>({ width: 0, measure: [], ready: false });
 
-		const [state, setState] = useState<StateProps>({
-			width: 0,
-			measure: [],
-		});
-
-		useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
+		useLayoutEffect(() => {
+			getRef?.(tabRef, state.width);
+		}, [tabRef, state.width]);
 
 		const handleEffect = () => {
-			const measure = [];
-			Object.values(data).map(({ ref }, i, array) => {
+			if (!groupRef.current) return;
+			const measure: MeasureProps = [];
+			Object.values(data).forEach(({ ref }, i, array) => {
 				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
 					measure.push({ left, top, width, height });
-					if (measure.length === array.length) setState(prev => ({ ...prev, measure }));
+					if (measure.length === array.length) setState(prev => ({ ...prev, measure, ready: true }));
 				});
 			});
 		};
 
 		const handleScroll = useScroll(tabRef, state.width);
 
-		const handleLayout = async ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+		const handleLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
 			const { width } = layout;
-			await setState(prev => ({ ...prev, width }));
-			await handleEffect();
-			handleScroll(index);
+			setState(prev => ({ ...prev, width, ready: false }));
+			requestAnimationFrame(() => {
+				handleEffect();
+				handleScroll(index);
+			});
 		};
 
 		return (
@@ -61,7 +62,9 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
 					))}
 				</View>
-				<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
+				{state.ready && (
+					<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
+				)}
 			</View>
 		);
 	},
