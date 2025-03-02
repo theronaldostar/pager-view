@@ -49,7 +49,7 @@ const Component = () => {
 	);
 
 	return (
-		<PagerView headerColor="#336aea" before={<Header />}>
+		<PagerView before={<Header />} headerColor="#2196f3">
 			<Pager title="First Page" element={<Screen />} />
 			<Pager index title="Second Page" element={<Text>Second page</Text>} />
 			<Pager index={false} title="Third Page" element={<Text>Third page</Text>} />
