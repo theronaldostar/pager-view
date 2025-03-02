@@ -10,7 +10,7 @@ type MeasureProps = { left: number; top: number; width: number; height: number }
 
 type StateProps = { measure: MeasureProps; width: number };
 
-type TabBarProps = {
+interface TabBarProps {
 	data: Record<number, TabProps>;
 	index?: number;
 	indicatorStyle?: StyleProps;
@@ -19,11 +19,11 @@ type TabBarProps = {
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
 	style?: StyleProps;
-};
+}
 
 const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 	({ data, index, indicatorStyle, getRef, headerColor, scrollX, showIndicator, style = {} }, tabRef) => {
-		const scheme = useColorScheme() || "light";
+		const scheme = useColorScheme() ?? "light";
 		const borderBottomColor = headerColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
 		const groupRef = useRef<View>(null);
@@ -36,14 +36,11 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 		useEffect(() => getRef?.(tabRef, state.width), [tabRef, state.width]);
 
 		const handleEffect = () => {
-			let count = 0;
-			const measure: MeasureProps = [];
-
-			Object.values(data).forEach(({ ref }, i, arr) => {
+			const measure = [];
+			Object.values(data).map(({ ref }, i, array) => {
 				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-					count++;
 					measure.push({ left, top, width, height });
-					if (count === arr.length) setState(prev => ({ ...prev, measure }));
+					if (measure.length === array.length) setState(prev => ({ ...prev, measure }));
 				});
 			});
 		};
