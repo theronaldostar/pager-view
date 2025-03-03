@@ -1,5 +1,5 @@
 import { Children, createRef, ReactNode, useEffect, useRef, useState, type ReactElement } from "react";
-import { Animated, StyleSheet, View, type ViewProps } from "react-native";
+import { Animated, StyleSheet, View, type TextStyle, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/header";
@@ -19,7 +19,7 @@ interface PagerViewProps extends ViewProps {
 	headerColor?: ColorProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
-	titleStyle?: StyleProps;
+	titleStyle?: StyleProps<TextStyle>;
 }
 
 const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, titleStyle, ...props }: PagerViewProps) => {

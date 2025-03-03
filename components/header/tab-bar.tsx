@@ -73,7 +73,6 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 
 const styles = StyleSheet.create({
 	main: {
-		backgroundColor: "rgba(255, 255, 255, 0)",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
 		justifyContent: "space-between",

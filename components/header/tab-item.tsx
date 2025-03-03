@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Pressable, StyleSheet, Text, useColorScheme } from "react-native";
+import { Pressable, StyleSheet, Text, useColorScheme, type TextStyle } from "react-native";
 
 import { useScroll, type UseScrollRef } from "pager-view/hooks";
 import type { StyleProps } from "pager-view/types";
@@ -9,7 +9,7 @@ interface TabItemProps {
 	scrollRef: UseScrollRef;
 	text: string;
 	width: number;
-	style?: StyleProps;
+	style?: StyleProps<TextStyle>;
 }
 
 const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, style = {}, width }, ref) => {
@@ -28,8 +28,8 @@ const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, style 
 const styles = StyleSheet.create({
 	text: {
 		fontSize: 20,
-		lineHeight: 16,
-		padding: 4,
+		lineHeight: 24,
+		paddingVertical: 0,
 		textAlign: "center",
 	},
 });
