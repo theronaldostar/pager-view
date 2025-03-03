@@ -19,9 +19,10 @@ interface PagerViewProps extends ViewProps {
 	headerColor?: ColorProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
+	titleStyle?: StyleProps;
 }
 
-const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, ...props }: PagerViewProps) => {
+const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, titleStyle, ...props }: PagerViewProps) => {
 	const { current } = useRef(new Animated.Value(0));
 	const refScroll = useRef<Animated.FlatList>(null);
 
@@ -62,6 +63,7 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 				scrollX={current}
 				showIndicator={showIndicator}
 				style={tabStyle}
+				titleStyle={titleStyle}
 			/>
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>

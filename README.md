@@ -177,21 +177,24 @@ export default nextConfig;
 | **showIndicator**  | `boolean`     | `true`      | Controls the visibility of the indicator.          |
 | **style**          | `react-style` | `undefined` | Custom styling for the component.                  |
 | **tabStyle**       | `react-style` | `undefined` | Styling for the tabs.                              |
+| **titleStyle**     | `react-style` | `undefined` | Custom styling for the tab text                    |
 
 ### 🪟 `Pager`
 
-| Prop        | Type         | Default    | Description                     |
-|-------------|--------------|------------|---------------------------------|
+| Prop        | Type         | Default    | Description                    |
+|-------------|--------------|------------|--------------------------------|
 | **index**   | `boolean`    | `false`    | Defines the default page. If multiple have this property, the last one is used. |
-| **title**   | `string`     | `required` | Title of the corresponding tab. |
-| **element** | `react-node` | `required` | React component to be rendered. |
+| **title**   | `string`     | `required` | Title of the corresponding tab |
+| **element** | `react-node` | `required` | React component to be rendered |
 
 ---
 
 ## 🙌 Support & Feedback
 
-📢 Found an issue or have suggestions? Open an issue on GitHub or send a message on any of these social networks
+📢 Found an issue or have suggestions? Open an issue on GitHub!
 
 💻 **GitHub:** [@TheRonaldoStar](https://github.com/theronaldostar/pager-view/discussions)<br/>
 🐦 **X/Twitter** [@TheRonaldoStar](https://x.com/theronaldostar)<br/>
 🔗👔 **Linkedin** [@TheRonaldoStar](https://www.linkedin.com/in/theronaldostar)
+
+---

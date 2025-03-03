@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Animated, Platform, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
+import { Animated, StyleSheet, useColorScheme, View, type LayoutChangeEvent } from "react-native";
 
 import { Indicator } from "pager-view/components/header/indicator";
 import { TabItem } from "pager-view/components/header/tab-item";
@@ -19,10 +19,11 @@ interface TabBarProps {
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
 	style?: StyleProps;
+	titleStyle?: StyleProps;
 }
 
 const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
-	({ data, index, indicatorStyle, getRef, headerColor, scrollX, showIndicator, style = {} }, tabRef) => {
+	({ data, index, indicatorStyle, getRef, headerColor, scrollX, showIndicator, style = {}, titleStyle }, tabRef) => {
 		const scheme = useColorScheme() ?? "light";
 		const borderBottomColor = headerColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
@@ -61,7 +62,7 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 			<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
 				<View ref={groupRef} style={styles.container}>
 					{Object.values(data).map(({ id, ref, title }) => (
-						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} width={state.width} />
+						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} style={titleStyle} width={state.width} />
 					))}
 				</View>
 				<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
@@ -75,8 +76,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(255, 255, 255, 0)",
 		borderBottomWidth: 1,
 		borderStyle: "solid",
-		justifyContent: "center",
-		minHeight: Platform.OS === "web" ? 40 : "auto",
+		justifyContent: "space-between",
+		minHeight: 34,
 	},
 	container: {
 		flexDirection: "row",
