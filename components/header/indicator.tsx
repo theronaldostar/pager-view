@@ -17,7 +17,7 @@ const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0
 
 	const backgroundColor = color ?? "#2196F3";
 
-	const inputRange = measure.map((_, i) => width * i);
+	const inputRange = measure.map((_, index) => width * index);
 
 	const indicator = scrollX.interpolate({
 		inputRange,

@@ -40,11 +40,15 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 		}, [data, tabRef, state.width]);
 
 		const handleEffect = () => {
-			const measure: MeasureProps = [];
-			Object.values(data).map(({ ref }, i, array) => {
-				ref?.current?.measureLayout(groupRef.current!, (left, top, width, height) => {
-					measure.push({ left, top, width, height });
-					if (measure.length === array.length) setState(prev => ({ ...prev, measure }));
+			if (!groupRef.current) return;
+			requestAnimationFrame(() => {
+				const measure = [];
+				Object.values(data).forEach(({ ref }, index, array) => {
+					if (!ref.current) return;
+					ref.current?.measureLayout(groupRef.current, (left, top, width, height) => {
+						measure.push({ left, top, width, height });
+						if (measure.length === array.length) setState(prev => ({ ...prev, measure }));
+					});
 				});
 			});
 		};

@@ -1,9 +1,9 @@
 import { forwardRef, useState } from "react";
-import { Animated, Dimensions, View, type LayoutChangeEvent, type StyleProp, type ViewStyle } from "react-native";
+import { Animated, Dimensions, View, type FlatList, type LayoutChangeEvent, type StyleProp, type ViewStyle } from "react-native";
 
 import type { ScreenProps } from "pager-view/types";
 
-type RefScrollProps = Animated.FlatList<ScreenProps>;
+type RefScrollProps = FlatList<ScreenProps>;
 
 interface ScrollViewProps {
 	data: Record<number, ScreenProps>;

@@ -1,5 +1,5 @@
 import { Children, createRef, ReactNode, useEffect, useRef, useState, type ReactElement } from "react";
-import { Animated, StyleSheet, View, type TextStyle, type ViewProps } from "react-native";
+import { Animated, StyleSheet, View, type FlatList, type TextStyle, type ViewProps } from "react-native";
 
 import { ScrollView } from "pager-view/components/container";
 import { TabBar } from "pager-view/components/header";
@@ -23,8 +23,10 @@ interface PagerViewProps extends ViewProps {
 }
 
 const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, titleStyle, ...props }: PagerViewProps) => {
+	if (!children) return null;
+
 	const { current } = useRef(new Animated.Value(0));
-	const refScroll = useRef<Animated.FlatList>(null);
+	const refScroll = useRef<FlatList<ScreenProps>>(null);
 
 	const [state, setState] = useState<StateProps>({
 		index: 0,
@@ -33,10 +35,8 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 	});
 
 	useEffect(() => {
-		const screens = {},
-			tabs = {};
-
-		if (!children) return null;
+		const screens = {};
+		const tabs = {};
 
 		Children.map(children as ReactElement<PagerProps>, (child, id) => {
 			const { index, title, element } = child.props;
@@ -45,9 +45,7 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 			if (index && id !== state.index) setState(prev => ({ ...prev, index: id }));
 		});
 
-		if (Object.keys(tabs).length === Children.count(children)) {
-			setState(prev => ({ ...prev, screens, tabs }));
-		}
+		if (Object.keys(tabs).length === Children.count(children)) setState(prev => ({ ...prev, screens, tabs }));
 	}, [before, children]);
 
 	return (
