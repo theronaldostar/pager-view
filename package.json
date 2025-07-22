@@ -5,6 +5,12 @@
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.ts"
+		}
+	},
 	"author": {
 		"name": "Ronaldo S.",
 		"email": "ronaldo.rs44@gmail.com",
@@ -38,21 +44,13 @@
 		"turbo"
 	],
 	"files": [
-		".vscode/",
-		".yarn/",
 		"components/",
 		"hooks/",
 		"types/",
-		".editorconfig",
-		".gitignore",
-		".prettierrc",
-		".yarnrc.yml",
-		"eslint.config.js",
-		"index.d.ts",
 		"index.ts",
-		"LICENSE",
+		"index.d.ts",
 		"README.md",
-		"tsconfig.json"
+		"LICENSE"
 	],
 	"devDependencies": {
 		"@eslint/js": "^9.31.0",
