@@ -1,16 +1,10 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.1.2",
+	"version": "1.1.3",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
-	"exports": {
-		".": {
-			"types": "./index.d.ts",
-			"import": "./index.ts"
-		}
-	},
 	"author": {
 		"name": "Ronaldo S.",
 		"email": "ronaldo.rs44@gmail.com",
@@ -50,7 +44,9 @@
 		"index.ts",
 		"index.d.ts",
 		"README.md",
-		"LICENSE"
+		"LICENSE",
+		"package.json",
+		"tsconfig.json"
 	],
 	"devDependencies": {
 		"@eslint/js": "^9.31.0",
