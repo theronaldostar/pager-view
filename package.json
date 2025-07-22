@@ -1,7 +1,7 @@
 {
 	"name": "pager-view",
 	"description": "A wrapper that works on multiple platforms: Android, iOS, and Web",
-	"version": "1.1.2-experimental-19Wl2wto",
+	"version": "1.1.2",
 	"license": "MIT",
 	"main": "index.ts",
 	"type": "module",
@@ -54,12 +54,6 @@
 		"README.md",
 		"tsconfig.json"
 	],
-	"dependencies": {
-		"react": "19.0.0",
-		"react-dom": "19.0.0",
-		"react-native": "0.79.5",
-		"react-native-web": "0.20.0"
-	},
 	"devDependencies": {
 		"@eslint/js": "^9.31.0",
 		"@types/react": "^19.1.8",
@@ -71,6 +65,10 @@
 		"eslint-plugin-react-refresh": "^0.4.20",
 		"globals": "^16.3.0",
 		"prettier": "^3.6.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-native": "~0.79.5",
+		"react-native-web": "^0.20.0",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.29.1"
 	},
