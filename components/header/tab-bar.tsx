@@ -41,10 +41,13 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 
 		const handleEffect = () => {
 			if (!groupRef.current) return;
+
 			requestAnimationFrame(() => {
 				const measure = [];
+
 				Object.values(data).forEach(({ ref }, index, array) => {
 					if (!ref.current) return;
+
 					ref.current?.measureLayout(groupRef.current, (left, top, width, height) => {
 						measure.push({ left, top, width, height });
 						if (measure.length === array.length) setState(prev => ({ ...prev, measure }));

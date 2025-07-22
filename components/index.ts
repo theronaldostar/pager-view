@@ -1,2 +1,2 @@
-export * from "pager-view/components/pager-view";
 export * from "pager-view/components/pager";
+export * from "pager-view/components/pager-view";
