@@ -12,17 +12,18 @@ type StateProps = {
 	tabs: Record<number, TabProps>;
 };
 
-interface PagerViewProps extends ViewProps {
+export interface PagerViewProps extends ViewProps {
 	before?: ReactNode;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
-	headerColor?: ColorProps;
+	tabItemsColor?: ColorProps;
 	showIndicator?: boolean;
 	tabStyle?: StyleProps;
+	titleColor?: ColorProps;
 	titleStyle?: StyleProps<TextStyle>;
 }
 
-const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, showIndicator, style, tabStyle, titleStyle, ...props }: PagerViewProps) => {
+export const PagerView = ({ before, children, indicatorStyle, getRef, showIndicator, style, ...props }: PagerViewProps) => {
 	if (!children) return null;
 
 	const { current } = useRef(new Animated.Value(0));
@@ -57,11 +58,12 @@ const PagerView = ({ before, children, headerColor, indicatorStyle, getRef, show
 				indicatorStyle={indicatorStyle}
 				ref={refScroll}
 				getRef={getRef}
-				headerColor={headerColor}
+				tabItemsColor={props.tabItemsColor}
 				scrollX={current}
 				showIndicator={showIndicator}
-				style={tabStyle}
-				titleStyle={titleStyle}
+				style={props.tabStyle}
+				titleColor={props.titleColor}
+				titleStyle={props.titleStyle}
 			/>
 			<ScrollView data={state.screens} ref={refScroll} scrollX={current} style={style} />
 		</View>
@@ -74,5 +76,3 @@ const styles = StyleSheet.create({
 		height: "100%",
 	},
 });
-
-export { PagerView, type PagerViewProps };

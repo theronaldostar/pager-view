@@ -4,17 +4,18 @@ import { Pressable, StyleSheet, Text, useColorScheme, type TextStyle } from "rea
 import { useScroll, type UseScrollRef } from "pager-view/hooks";
 import type { StyleProps } from "pager-view/types";
 
-interface TabItemProps {
+export interface TabItemProps {
 	index: number;
 	scrollRef: UseScrollRef;
 	text: string;
+	textColor?: string;
 	width: number;
 	style?: StyleProps<TextStyle>;
 }
 
-const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, style = {}, width }, ref) => {
+export const TabItem = forwardRef<Text, TabItemProps>(({ index, scrollRef, text, textColor, style = {}, width }, ref) => {
 	const scheme = useColorScheme() ?? "light";
-	const color = scheme === "dark" ? "#fff" : "#475569";
+	const color = textColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
 	const handlePress = useScroll(scrollRef, width);
 
@@ -33,5 +34,3 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 });
-
-export { TabItem, type TabItemProps };

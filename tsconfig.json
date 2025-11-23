@@ -1,9 +1,8 @@
 {
 	"compilerOptions": {
 		"jsx": "react-native",
-		"baseUrl": ".",
 		"paths": {
-			"pager-view/*": ["*"]
+			"pager-view/*": ["./*"]
 		}
 	},
 	"exclude": ["node_modules"],

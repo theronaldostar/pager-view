@@ -3,7 +3,18 @@ import type { Animated, StyleProp, View, ViewStyle } from "react-native";
 
 type ScrollInstanceRef = ForwardedRef<Animated.FlatList>;
 
-type ColorProps = `#${string}` | `rgb(${string})` | `rgba(${string})` | `hsl(${string})` | `hwb(${string})`;
+type ColorProps =
+	| `var(--${string})`
+	| `#${string}`
+	| `rgb(${string})`
+	| `rgba(${string})`
+	| `hsl(${string})`
+	| `hwb(${string})`
+	| `lch(${string})`
+	| `oklch(${string})`
+	| `lab(${string})`
+	| `oklab(${string})`
+	| `color(${string})`;
 
 type GetRefProps = (ref: ScrollInstanceRef, width: number) => void;
 

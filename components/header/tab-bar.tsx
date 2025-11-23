@@ -6,26 +6,27 @@ import { TabItem } from "pager-view/components/header/tab-item";
 import { useScroll } from "pager-view/hooks";
 import type { ColorProps, GetRefProps, StyleProps, TabProps } from "pager-view/types";
 
-type MeasureProps = { left: number; top: number; width: number; height: number }[];
+export type MeasureProps = { left: number; top: number; width: number; height: number }[];
 
 type StateProps = { measure: MeasureProps; width: number };
 
-interface TabBarProps {
+export interface TabBarProps {
 	data: Record<number, TabProps>;
 	index?: number;
 	indicatorStyle?: StyleProps;
 	getRef?: GetRefProps;
-	headerColor?: ColorProps;
+	tabItemsColor?: ColorProps;
 	scrollX: Animated.Value;
 	showIndicator?: boolean;
 	style?: StyleProps;
+	titleColor?: ColorProps;
 	titleStyle?: StyleProps;
 }
 
-const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
-	({ data, index, indicatorStyle, getRef, headerColor, scrollX, showIndicator, style = {}, titleStyle }, tabRef) => {
+export const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
+	({ data, index, indicatorStyle, getRef, tabItemsColor, scrollX, showIndicator, style = {}, titleColor, titleStyle }, tabRef) => {
 		const scheme = useColorScheme() ?? "light";
-		const borderBottomColor = headerColor ?? (scheme === "dark" ? "#fff" : "#475569");
+		const borderBottomColor = tabItemsColor ?? (scheme === "dark" ? "#fff" : "#475569");
 
 		const groupRef = useRef<View>(null);
 
@@ -66,13 +67,13 @@ const TabBar = forwardRef<Animated.FlatList, TabBarProps>(
 		};
 
 		return (
-			<View onLayout={handleLayout} style={[styles.main, { borderBottomColor }, style]}>
+			<View onLayout={handleLayout} style={[styles.main, style, { borderBottomColor }]}>
 				<View ref={groupRef} style={styles.container}>
 					{Object.values(data).map(({ id, ref, title }) => (
-						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} style={titleStyle} width={state.width} />
+						<TabItem index={id} ref={ref} key={id} scrollRef={tabRef} text={title} textColor={titleColor} style={titleStyle} width={state.width} />
 					))}
 				</View>
-				<Indicator color={headerColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
+				<Indicator color={tabItemsColor} measure={state.measure} scrollX={scrollX} show={showIndicator} style={indicatorStyle} width={state.width} />
 			</View>
 		);
 	},
@@ -91,5 +92,3 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 	},
 });
-
-export { TabBar, type MeasureProps, type TabBarProps };

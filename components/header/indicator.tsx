@@ -3,7 +3,7 @@ import { Animated, StyleSheet } from "react-native";
 import type { MeasureProps } from "pager-view/components/header";
 import type { ColorProps, StyleProps } from "pager-view/types";
 
-interface IndicatorProps {
+export interface IndicatorProps {
 	color?: ColorProps;
 	measure: MeasureProps;
 	scrollX: Animated.Value;
@@ -12,10 +12,10 @@ interface IndicatorProps {
 	width: number;
 }
 
-const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0 }: IndicatorProps) => {
+export const Indicator = ({ color, measure, scrollX, show = true, style = {}, width = 0 }: IndicatorProps) => {
 	if (!show || !scrollX || !Array.isArray(measure) || measure.length < 2 || measure.some(value => typeof value !== "object")) return null;
 
-	const backgroundColor = color ?? "#2196F3";
+	const backgroundColor = color ?? "#2196f3";
 
 	const inputRange = measure.map((_, index) => width * index);
 
@@ -40,5 +40,3 @@ const styles = StyleSheet.create({
 		left: 0,
 	},
 });
-
-export { Indicator, type IndicatorProps };

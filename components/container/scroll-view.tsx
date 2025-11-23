@@ -5,13 +5,13 @@ import type { ScreenProps } from "pager-view/types";
 
 type RefScrollProps = FlatList<ScreenProps>;
 
-interface ScrollViewProps {
+export interface ScrollViewProps {
 	data: Record<number, ScreenProps>;
 	scrollX: Animated.Value;
 	style?: StyleProp<ViewStyle>;
 }
 
-const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX, style, ...props }, ref) => {
+export const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX, style, ...props }, ref) => {
 	const [state, setState] = useState(() => {
 		const { width, height } = Dimensions.get("window");
 		return { width, height };
@@ -41,5 +41,3 @@ const ScrollView = forwardRef<RefScrollProps, ScrollViewProps>(({ data, scrollX,
 		/>
 	);
 });
-
-export { ScrollView, type ScrollViewProps };
